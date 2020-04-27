@@ -15,4 +15,6 @@ $(document).ready(function () {
 
         //console.log(user_id);
     })
+
+    $('#csv-file').on('change', (e) => $('#csv-file + .custom-file-label').text(e.target.value))
 });

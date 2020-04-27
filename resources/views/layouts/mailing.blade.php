@@ -201,6 +201,10 @@
                                                                         Reflection</label>
                                                                 </div>
                                                             </div>
+                                                            <button type="submit" onSubmit="document.orderform1.reset()"
+                                                                    class="d-none"
+                                                                    id="addParticipantSubmitButton">
+                                                            </button>
                                                         </form>
                                                     @else
                                                         <div>Companies list is empty!</div>
@@ -212,8 +216,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                         </button>
-                                        <button type="submit" class="btn btn-primary"
-                                                onSubmit="document.orderform1.reset()">Add new Participant
+                                        <button type="button" class="btn btn-primary" id="addParticipantModalButton">Add new Participant
                                         </button>
                                     </div>
                                 </div>

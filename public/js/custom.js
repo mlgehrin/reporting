@@ -17,4 +17,6 @@ $(document).ready(function () {
     })
 
     $('#csv-file').on('change', (e) => $('#csv-file + .custom-file-label').text(e.target.value))
+
+    $('#addParticipantModalButton').on('click', () => $('#addParticipantSubmitButton').click())
 });

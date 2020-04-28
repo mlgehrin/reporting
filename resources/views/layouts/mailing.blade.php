@@ -41,7 +41,7 @@
                             <div class="block-mailing row">
                                 <div class="col-10">
                                     @if(@isset($companies))
-                                        <form action="" id="mailing-list" method="POST">
+                                        <form action="" id="mailing-company" method="POST">
                                             <div class="form-row d-flex align-items-end">
                                                 <div class="form-group col-4">
                                                     <label for="id-company">Сhoose company</label>
@@ -53,7 +53,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group ml-3">
-                                                    <button class="btn btn-primary">Send</button>
+                                                    <button id="start-mailing" class="btn btn-primary">Send</button>
                                                 </div>
 
                                                 <div class="form-group ml-auto">
@@ -180,7 +180,7 @@
                                                                 </div>
                                                                 <div class="form-group col-12">
                                                                     <label for="user-name">Participant email</label>
-                                                                    <input class="form-control" id="user-email"
+                                                                    <input class="form-control" id="user-name"
                                                                            type="text" name="email"
                                                                            placeholder="name@example.com">
                                                                 </div>
@@ -238,4 +238,6 @@
                 </div>
             </div>
         </div>
+        </div>
+    </div>
 @endsection

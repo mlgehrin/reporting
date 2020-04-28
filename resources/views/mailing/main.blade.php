@@ -1,1 +1,1 @@
-<?php
+<div>Test message</div>

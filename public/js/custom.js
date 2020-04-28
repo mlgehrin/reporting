@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    
+    //send ajax to remove participant
     $('.participant-list').on('click', '#remove-participant', function () {
         let user_id = $(this).data('user-id');
         let data = 'user_id=' + user_id;
@@ -12,8 +14,20 @@ $(document).ready(function () {
                 }
             }.bind(this))
             .catch(error => console.log(error));
+    })
+    
+    $('#start-mailing').on('click', function (e) {
+        let compani_id = $('select[name=company_id] option').filter(':selected').val();
+        let data = 'company_id=' + compani_id;
+        axios
+            .post('start-mailing', data)
+            .then(function (response) {
+                console.log(response);
+            }.bind(this))
+            .catch(error => console.log(error));
 
-        //console.log(user_id);
+        console.log(1231);
+        e.preventDefault();
     })
 
     $('#csv-file').on('change', (e) => $('#csv-file + .custom-file-label').text(e.target.value))

@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Participant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Mailing\MailController;
 
 class MailingPageController extends Controller
 {
@@ -55,5 +56,23 @@ class MailingPageController extends Controller
         }
 
 
+    }
+
+    public function initMailing(Request $request){
+        if($request->has('company_id')){
+            $company_id = htmlentities(trim($request->post('company_id')));
+            $participants = Participant::where('company_id', $company_id)->get();
+
+            if(!empty($participants)){
+                $data =  array();
+                foreach ($participants as $participant) {
+                    $mail = new MailController();
+                    $response = $mail->sendSurveyInvitations($participant->email);
+                    $data[] = $response;
+                    //var_dump($participant->email);die;
+                }
+                return $data;
+            }
+        }
     }
 }

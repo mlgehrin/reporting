@@ -36,5 +36,7 @@ Route::post('/', 'Mailing\MailingPageController@createParticipant', function (){
 })->name('createParticipant');
 Route::post('remove/participant/{user_id}', 'Mailing\MailingPageController@removeParticipant')->name('removeParticipant');
 
+
+Route::post('/start-mailing', 'Mailing\MailingPageController@initMailing')->name('startMailing');
 //Route::resource('companies', 'CompanyController');
 //Route::resource('participants', 'ParticipantController');

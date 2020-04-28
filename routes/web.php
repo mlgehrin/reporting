@@ -21,12 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');*/
 
 Route::get('/', 'Mailing\MailingPageController@LoadPageData')->name('mainPage');
 
-/*Route::get('/', function () {
-    return view('layouts/mailing');
-});*/
-
 Auth::routes();
-//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/save-csv-file/', 'Mailing\CsvController@saveCsvFile', function (){
     return redirect('/');
@@ -36,8 +31,12 @@ Route::post('/', 'Mailing\MailingPageController@createParticipant', function (){
 })->name('createParticipant');
 Route::post('remove/participant/{user_id}', 'Mailing\MailingPageController@removeParticipant')->name('removeParticipant');
 
+Route::post('remove/company', 'Mailing\MailingPageController@removeCompany')->name('removeCompany');
+Route::post('update/participant', 'Mailing\MailingPageController@updateParticipantForCompany')->name('updateParticipantForCompany');
+
 Route::get('unsubscribe/{user_id}', 'Mailing\MailController@unsubscribe');
 
 Route::post('/start-mailing', 'Mailing\MailingPageController@initMailing')->name('startMailing');
+
 //Route::resource('companies', 'CompanyController');
 //Route::resource('participants', 'ParticipantController');

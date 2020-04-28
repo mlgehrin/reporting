@@ -14,21 +14,16 @@ class MailingPageController extends Controller
     function LoadPageData(){
         $companies = Company::all();
         $company = $companies->first();
-        //var_dump($company);die;
+
         if(!empty($company)){
             $company_id = $company->id;
             $participants = Participant::where('company_id', $company_id)->get();
+
             return view('layouts.mailing', compact('companies', 'participants'));
 
         }
 
         return view('layouts.mailing');
-
-        //Company::where('id', 23)->delete();
-        //var_dump(Participant::where('company_id', 22)->delete());die;
-        //var_dump($participants);die;
-        //$participants = Participant::all();
-        //var_dump($companies);die;
     }
 
     public function createParticipant(ParticipantCreateRequest $request)
@@ -58,6 +53,84 @@ class MailingPageController extends Controller
 
     }
 
+    public function updateParticipantForCompany(Request $request){
+        if($request->has('company_id')){
+            $company_id = htmlentities(trim($request->post('company_id')));
+            $participants = Participant::where('company_id', $company_id)->get();
+
+            if(!empty($participants)){
+                $html = '';
+                $html .= '<div class="list col-10">';
+                    $html .= '<table class="participant-list table table-striped">';
+                        foreach ($participants as $key => $participant) {
+                            $num = ++$key;
+                            $checked_self_reflection = $participant->self_reflection == 1?'checked="checked"':'';
+                            $checked_peer_reflection = $participant->peer_reflection == 1?'checked="checked"':'';
+                            $html .= '<tr class="item-row-' . $participant->id . '">';
+                                $html .= '<td>' . $num . '</td>';
+                                $html .= '<td>' . $participant->first_name . '</td>';
+                                $html .= '<td>' . $participant->last_name . '</td>';
+                                $html .= '<td>' . $participant->email . '</td>';
+                                $html .= '<td>';
+                                    $html .= '<div class="custom-control custom-checkbox">';
+                                        $html .= '<input type="checkbox"
+                                        class="custom-control-input"
+                                        id="self-refl-' . $participant->id . '"
+                                        name="self_reflection"
+                                        value="' . $participant->self_reflection . '" ' . $checked_self_reflection . '>';
+                                        $html .= '<label class="custom-control-label" for="self-refl-' . $participant->id . '">Self Reflection</label>';
+                                    $html .= '</div>';
+                                $html .= '</td>';
+                                $html .= '<td>';
+                                    $html .= '<div class="custom-control custom-checkbox">';
+                                        $html .= '<input type="checkbox"
+                                        class="custom-control-input"
+                                        id="peer-refl-' . $participant->id . '"
+                                        name="peer_reflection"
+                                        value="' . $participant->peer_reflection . '" ' . $checked_peer_reflection . '>';
+                                        $html .= '<label class="custom-control-label" for="peer-refl-' . $participant->id . '">Peer Reflection</label>';
+                                    $html .= '</div>';
+                                $html .= '</td>';
+
+                            $html .= '</tr>';
+                        }
+                    $html .= '</table>';
+                $html .= '</div>';
+
+                $response = array(
+                    'update' => true,
+                    'participant_list' => $html,
+                );
+
+                return $response;
+            }
+            //var_dump($remove_participant, $remove_company);
+            return array('update' => false);
+        }
+    }
+
+    public function removeCompany(Request $request){
+        if($request->has('company_id')){
+            $company_id = htmlentities(trim($request->post('company_id')));
+            Participant::where('company_id', $company_id)->delete();
+            $remove_company = Company::destroy($company_id);
+            if($remove_company > 0){
+                $company = Company::first();
+                $company_id = $company->id;
+                $participants = Participant::where('company_id', $company_id)->get();
+
+                $response = array(
+                    'remove' => true,
+                    'company_id' => $company_id,
+                    'participant_list' => $participants,
+                );
+
+                return $response;
+            }
+            return array('remove' => false);
+        }
+    }
+
     public function initMailing(Request $request){
         if($request->has('company_id')){
             $company_id = htmlentities(trim($request->post('company_id')));
@@ -69,7 +142,6 @@ class MailingPageController extends Controller
                     $mail = new MailController();
                     $response = $mail->sendSurveyInvitations($participant->email, $participant->id);
                     $data[] = $response;
-                    //var_dump($participant->email);die;
                 }
                 return $data;
             }

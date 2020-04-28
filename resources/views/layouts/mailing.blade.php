@@ -45,7 +45,7 @@
                                             <div class="form-row d-flex align-items-end">
                                                 <div class="form-group col-4">
                                                     <label for="id-company">Сhoose company</label>
-                                                    <select class="form-control" name="company_id" id="id-company">
+                                                    <select class="form-control" name="id-company" id="id-company">
                                                         @foreach($companies as $company)
                                                             <option
                                                                 value="{{ $company->id }}">{{ $company->name }}</option>
@@ -57,7 +57,7 @@
                                                 </div>
 
                                                 <div class="form-group ml-auto">
-                                                    <button class="btn btn-outline-danger">Remove company</button>
+                                                    <button id="remove-company" class="btn btn-outline-danger">Remove company</button>
                                                 </div>
                                             </div>
                                         </form>

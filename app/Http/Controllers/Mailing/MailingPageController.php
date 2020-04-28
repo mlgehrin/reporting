@@ -67,7 +67,7 @@ class MailingPageController extends Controller
                 $data =  array();
                 foreach ($participants as $participant) {
                     $mail = new MailController();
-                    $response = $mail->sendSurveyInvitations($participant->email);
+                    $response = $mail->sendSurveyInvitations($participant->email, $participant->id);
                     $data[] = $response;
                     //var_dump($participant->email);die;
                 }

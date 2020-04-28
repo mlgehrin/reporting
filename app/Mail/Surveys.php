@@ -12,14 +12,15 @@ class Surveys extends Mailable
     use Queueable, SerializesModels;
 
     //public $mail_data;
+    public $user_id;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user_id)
     {
-
+        $this->user_id = $user_id;
     }
 
     /**
@@ -29,6 +30,6 @@ class Surveys extends Mailable
      */
     public function build()
     {
-        return $this->view('mailing.main');
+        return $this->subject('Survey')->view('mailing.main');
     }
 }

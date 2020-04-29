@@ -29,7 +29,7 @@
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         </div>
                                         <div class='col-2'>
-                                            <button type="submit" class="btn btn-success btn-block">Parse CSV</button>
+                                            <button id="save-file" type="submit" class="btn btn-success btn-block">Parse CSV</button>
                                         </div>
                                     </div>
                                 </div>

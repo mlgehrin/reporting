@@ -23,9 +23,7 @@ Route::get('/', 'Mailing\MailingPageController@LoadPageData')->name('mainPage');
 
 Auth::routes();
 
-Route::post('/save-csv-file/', 'Mailing\CsvController@saveCsvFile', function (){
-    return redirect('/');
-})->name('saveCsvFile');
+Route::post('/save-csv-file/', 'Mailing\CsvController@saveCsvFile')->name('saveCsvFile');
 Route::post('/', 'Mailing\MailingPageController@createParticipant', function (){
     return redirect('/');
 })->name('createParticipant');

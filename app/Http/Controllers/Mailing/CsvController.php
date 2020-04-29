@@ -40,15 +40,12 @@ class CsvController extends Controller
                         $participant->save();
                     }
                 }
-                //var_dump();die;
-                //$csv = array_map('str_getcsv', file($file));
-                //var_dump($file->getClientOriginalExtension());die;
 
-                $page = new MailingPageController();
-                return $page->LoadPageData();
-
+                return array('save_file' => true);
+                /*$page = new MailingPageController();
+                return $page->LoadPageData();*/
             }
+            return array('save_file' => false);
         }
-
     }
 }

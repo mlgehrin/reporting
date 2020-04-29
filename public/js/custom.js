@@ -68,6 +68,32 @@ $(document).ready(function () {
         console.log('remove', compani_id);
     })
 
+    // send ajax for save csv file and parse file data
+    $('#save-file').on('click', function (e) {
+        if($('#csv-file').val()){
+            let file_data = $('#csv-file').prop('files')[0];
+            let form_data = new FormData();
+            let token = $('meta[name="csrf-token"]').attr('content');
+            form_data.append('csv_file', file_data);
+            form_data.append('_token', token);
+
+            $.ajax({
+                url: 'save-csv-file',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function(response){
+                    if(response.save_file === true){
+                        alert('File saved successfully!');
+                        window.location.replace('/');
+                    }
+                }
+            });
+        }
+        e.preventDefault();
+    });
 
     $('#csv-file').on('change', (e) => $('#csv-file + .custom-file-label').text(e.target.value))
 

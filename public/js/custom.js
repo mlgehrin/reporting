@@ -66,7 +66,7 @@ $(document).ready(function () {
         })()
         let data = 'peer_reflection=' + users_id;
         axios
-            .post('set/peer_reflection', data)
+            .post('update/peer-reflection', data)
             .then(function (response) {
                 console.log('set peer_reflection',response);
             }.bind(this))
@@ -78,14 +78,14 @@ $(document).ready(function () {
             let data = 'peer_reflection=' + user_id;
             if (e.target.checked) {
                 axios
-                    .post('set/peer_reflection', data)
+                    .post('update/peer-reflection', data)
                     .then(function (response) {
                         console.log('set peer_reflection',response);
                     }.bind(this))
                     .catch(error => console.log(error));
             } else {
                 axios
-                    .post('remove/peer_reflection', data)
+                    .post('remove/peer-reflection', data)
                     .then(function (response) {
                         console.log('remove peer_reflection',response);
                     }.bind(this))
@@ -105,28 +105,28 @@ $(document).ready(function () {
             }})
             return list.slice(0, -1)
         })()
-        let data = 'peer_reflection=' + users_id;
+        let data = 'self_reflection=' + users_id;
         axios
-            .post('set/peer_reflection', data)
+            .post('update/self-reflection', data)
             .then(function (response) {
-                console.log('set peer_reflection',response);
+                console.log('set self_reflection',response);
             }.bind(this))
             .catch(error => console.log(error));
     })
     function initSelfReflection () {
         $(".participant-list input[name='self_reflection']").on('click', function (e) {
             let user_id = e.target.dataset.userId;
-            let data = 'peer_reflection=' + user_id;
+            let data = 'self_reflection=' + user_id;
             if (e.target.checked) {
                 axios
-                    .post('set/self_reflection', data)
+                    .post('update/self-reflection', data)
                     .then(function (response) {
                         console.log('set self_reflection',response);
                     }.bind(this))
                     .catch(error => console.log(error));
             } else {
                 axios
-                    .post('remove/self_reflection', data)
+                    .post('remove/self-reflection', data)
                     .then(function (response) {
                         console.log('remove self_reflection',response);
                     }.bind(this))

@@ -145,8 +145,8 @@ $(document).ready(function () {
 
     // send ajax to remove current company
     $('#remove-company').on('click', function (e) {
-        let compani_id = $('select[name=id-company] option').filter(':selected').val();
-        let data = 'company_id=' + compani_id;
+        let current_company_id = $('select[name=id-company] option').filter(':selected').val();
+        let data = 'company_id=' + current_company_id;
         axios
             .post('remove/company', data)
             .then(function (response) {

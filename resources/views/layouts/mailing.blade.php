@@ -188,7 +188,7 @@
                                                                 <div class="form-group col-12">
                                                                     <label for="user-name">Participant email</label>
                                                                     <input class="form-control" id="user-name"
-                                                                           type="text" name="email"
+                                                                           type="email" name="email"
                                                                            placeholder="name@example.com">
                                                                 </div>
                                                             </div>

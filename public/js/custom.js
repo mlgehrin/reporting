@@ -160,6 +160,7 @@ $(document).ready(function () {
             .then(function (response) {
                 if(response.data.remove === true) {
                     $("select[name=id-company]").val(response.data.company_id);
+                    $("option[value=" + current_company_id + "]").remove();
                     $('#id-company').change();
                     //let current_option $("select[name=id-company] option[value='2']").attr('selected', 'true')
                 }

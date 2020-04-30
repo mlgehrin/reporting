@@ -189,8 +189,13 @@ $(document).ready(function () {
                 type: 'post',
                 success: function(response){
                     if(response.save_file === true){
-                        alert('File saved successfully!');
                         window.location.replace('/');
+                        $('#fileSuccessful').html(
+                            '<div class="alert alert-success alert-dismissible fade show" role="alert">\n' +
+                            '    File saved successfully!\n' +
+                            '</div>'
+                        )
+                        setTimeout( function() {window.location.replace('/')}, 10000)
                     }
                 }
             });

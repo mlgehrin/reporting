@@ -70,7 +70,7 @@
 
                             {{--START block participant list--}}
                             <div class="block-participant-list row">
-                                <div class="list col-9">
+                                <div id="participant-list" class="list col-9">
                                     @if(@isset($participants))
                                         <table class="participant-list table table-striped">
                                             @foreach($participants as $key => $participant)

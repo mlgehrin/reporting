@@ -38,8 +38,8 @@ $(document).ready(function () {
             .post('update/participant', data)
             .then(function (response) {
                 if(response.data.update === true) {
-                    $('.block-participant-list .list').remove();
-                    $('.block-participant-list').html(response.data.participant_list);
+                    $('.block-participant-list #participant-list').remove();
+                    $('.block-participant-list').prepend(response.data.participant_list);
                 }
                 console.log('update participant',response);
             }.bind(this))

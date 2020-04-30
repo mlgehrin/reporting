@@ -60,7 +60,7 @@ class MailingPageController extends Controller
 
             if(!empty($participants)){
                 $html = '';
-                $html .= '<div class="list col-10">';
+                $html .= '<div id="participant-list" class="list col-9">';
                     $html .= '<table class="participant-list table table-striped">';
                         foreach ($participants as $key => $participant) {
                             $num = ++$key;
@@ -90,6 +90,9 @@ class MailingPageController extends Controller
                                         value="' . $participant->peer_reflection . '" ' . $checked_peer_reflection . '>';
                                         $html .= '<label class="custom-control-label" for="peer-refl-' . $participant->id . '">Peer Reflection</label>';
                                     $html .= '</div>';
+                                $html .= '</td>';
+                                $html .= '<td id="remove-participant" data-user-id="' . $participant->id . '">';
+                                    $html .= '<button class="btn btn-outline-danger btn-sm">Remove</button>';
                                 $html .= '</td>';
 
                             $html .= '</tr>';

@@ -36,6 +36,9 @@ Route::get('unsubscribe/{user_id}', 'Mailing\MailController@unsubscribe');
 
 Route::post('/start-mailing', 'Mailing\MailingPageController@initMailing')->name('startMailing');
 
+Route::post('update/peer-reflection', 'Mailing\MailingPageController@updatePeerReflection')->name('updatePeerReflection');
+Route::post('remove/peer-reflection', 'Mailing\MailingPageController@removePeerReflection')->name('removePeerReflection');
+
 Route::post('/save-survey-answers', 'API\SurveyLegendController@saveSurveyAnswers');
 Route::match(['GET', 'POST'],'/save-survey-answers', 'API\SurveyLegendController@saveSurveyAnswers');
 

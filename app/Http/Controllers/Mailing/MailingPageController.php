@@ -50,8 +50,32 @@ class MailingPageController extends Controller
 
             return array('remove_user' => $result);
         }
+    }
 
+    public function updatePeerReflection(Request $request){
+        if($request->has('peer_reflection')){
+            $data = htmlentities(trim($request->post('peer_reflection')));
+            $users_id = explode(',', $data);
+            foreach ($users_id as $id){
+                $participant = Participant::find($id);
+                $participant->peer_reflection = 1;
+                $participant->save();
+            }
+            return array('update_peer_reflection' => true);
+        }
+    }
 
+    public function removePeerReflection(Request $request){
+        if($request->has('peer_reflection')){
+            $data = htmlentities(trim($request->post('peer_reflection')));
+            $users_id = explode(',', $data);
+            foreach ($users_id as $id){
+                $participant = Participant::find($id);
+                $participant->peer_reflection = 0;
+                $participant->save();
+            }
+            return array('remove_peer_reflection' => true);
+        }
     }
 
     public function updateParticipantForCompany(Request $request){

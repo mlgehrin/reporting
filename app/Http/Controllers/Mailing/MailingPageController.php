@@ -8,6 +8,7 @@ use App\Models\Participant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Mailing\MailController;
+use App\Jobs\SendEmail;
 
 class MailingPageController extends Controller
 {
@@ -142,11 +143,22 @@ class MailingPageController extends Controller
             if(!empty($participants)){
                 $data =  array();
                 foreach ($participants as $participant) {
-                    $mail = new MailController();
+                    //var_dump($participant);die;
+                    if($participant->self_reflection == 1){
+                        $template_path = 'mailing.selfReflection';
+                        SendEmail::dispatch($participant->email, $participant->id, $template_path);
+                    }
+                    if($participant->peer_reflection == 1){
+                        $template_path = 'mailing.peerReflection';
+                        SendEmail::dispatch($participant->email, $participant->id, $template_path);
+                    }
+                    /*$mail = new MailController();
                     $response = $mail->sendSurveyInvitations($participant->email, $participant->id);
-                    $data[] = $response;
+                    $data[] = $response;*/
                 }
-                return $data;
+                return array(
+                    'send' => true
+                );
             }
         }
     }

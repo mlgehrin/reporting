@@ -36,5 +36,8 @@ Route::get('unsubscribe/{user_id}', 'Mailing\MailController@unsubscribe');
 
 Route::post('/start-mailing', 'Mailing\MailingPageController@initMailing')->name('startMailing');
 
+Route::post('/save-survey-answers', 'API\SurveyLegendController@saveSurveyAnswers');
+Route::match(['GET', 'POST'],'/save-survey-answers', 'API\SurveyLegendController@saveSurveyAnswers');
+
 //Route::resource('companies', 'CompanyController');
 //Route::resource('participants', 'ParticipantController');

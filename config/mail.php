@@ -60,10 +60,10 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Surveys'),
     ],
     // delete fo live!
-    'to' => [
+    /*'to' => [
         'address' => 'evgen.korolev@quardex.com',
         'name' => 'Example'
-    ],
+    ],*/
 
     /*
     |--------------------------------------------------------------------------

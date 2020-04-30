@@ -13,14 +13,17 @@ class Surveys extends Mailable
 
     //public $mail_data;
     public $user_id;
+    public $template_path;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user_id)
+    public function __construct($user_id, $template_path)
     {
         $this->user_id = $user_id;
+        $this->template_path = $template_path;
+
     }
 
     /**
@@ -30,6 +33,6 @@ class Surveys extends Mailable
      */
     public function build()
     {
-        return $this->subject('Survey')->view('mailing.main');
+        return $this->subject('Survey')->view($this->template_path);
     }
 }

@@ -32,6 +32,9 @@
                                             <button id="save-file" type="submit" class="btn btn-success btn-block">Parse CSV</button>
                                         </div>
                                     </div>
+                                    <div class="row mt-2">
+                                        <div id="fileSuccessful" class="col-9"></div>
+                                    </div>
                                 </div>
                             </form>
 

@@ -19,7 +19,7 @@
                             <form action="{{ route('saveCsvFile') }}" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <div class='row'>
-                                        <div class="col-10">
+                                        <div class="col-9">
                                             <div class="custom-file">
                                                 <input type="file" name="csv_file" class="custom-file-input"
                                                        id="csv-file" required>
@@ -28,7 +28,7 @@
                                             </div>
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         </div>
-                                        <div class='col-2'>
+                                        <div class='col-3'>
                                             <button id="save-file" type="submit" class="btn btn-success btn-block">Parse CSV</button>
                                         </div>
                                     </div>
@@ -39,7 +39,7 @@
 
                             {{--START block mailing--}}
                             <div class="block-mailing row">
-                                <div class="col-10">
+                                <div class="col-9">
                                     @if(@isset($companies))
                                         <form action="" id="mailing-company" method="POST">
                                             <div class="form-row d-flex align-items-end">
@@ -70,7 +70,7 @@
 
                             {{--START block participant list--}}
                             <div class="block-participant-list row">
-                                <div class="list col-10">
+                                <div class="list col-9">
                                     @if(@isset($participants))
                                         <table class="participant-list table table-striped">
                                             @foreach($participants as $key => $participant)
@@ -113,7 +113,7 @@
                                                         </div>
                                                     </td>
                                                     <td id="remove-participant" data-user-id="{{ $participant->id }}">
-                                                        <button class="btn btn-outline-danger">Remove</button>
+                                                        <button class="btn btn-outline-danger btn-sm">Remove</button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -122,10 +122,17 @@
                                         <div>Participant list is empty!</div>
                                     @endif
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <button type="button" class="btn btn-success btn-block" data-toggle="modal"
                                             data-target="#addParticipant">
                                         Add Participant
+                                    </button>
+
+                                    <button type="button" class="btn btn-outline-primary btn-block btn-sm">
+                                        Select All Peer Reflections
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary btn-block btn-sm">
+                                        Select All Self Reflections
                                     </button>
                                 </div>
                             </div>

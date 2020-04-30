@@ -26,6 +26,14 @@ $(document).ready(function () {
             .post('start-mailing', data)
             .then(function (response) {
                 console.log(response);
+                $('#sendSuccessful').html(
+                    '<div class="alert alert-success alert-dismissible fade show" role="alert">\n' +
+                    '    Sending was successful\n' +
+                    '    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                    '        <span aria-hidden="true">&times;</span>\n' +
+                    '    </button>\n' +
+                    '</div>'
+                )
             }.bind(this))
             .catch(error => console.log(error));
 

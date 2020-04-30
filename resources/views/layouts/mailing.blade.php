@@ -67,6 +67,11 @@
                                 </div>
                             </div>
                             {{--END block mailing--}}
+                            <div class="row">
+                                <div class="col-9" id="sendSuccessful">
+
+                                </div>
+                            </div>
 
                             {{--START block participant list--}}
                             <div class="block-participant-list row">
@@ -130,11 +135,11 @@
                                         Add Participant
                                     </button>
 
-                                    <button type="button" id="selectAllPeerReflections" class="btn btn-outline-primary btn-block btn-sm">
-                                        Select All Peer Reflections
-                                    </button>
                                     <button type="button" id="selectAllSelfReflections" class="btn btn-outline-primary btn-block btn-sm">
                                         Select All Self Reflections
+                                    </button>
+                                    <button type="button" id="selectAllPeerReflections" class="btn btn-outline-primary btn-block btn-sm">
+                                        Select All Peer Reflections
                                     </button>
                                 </div>
                             </div>

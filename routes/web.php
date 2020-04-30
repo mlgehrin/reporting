@@ -39,6 +39,10 @@ Route::post('/start-mailing', 'Mailing\MailingPageController@initMailing')->name
 Route::post('update/peer-reflection', 'Mailing\MailingPageController@updatePeerReflection')->name('updatePeerReflection');
 Route::post('remove/peer-reflection', 'Mailing\MailingPageController@removePeerReflection')->name('removePeerReflection');
 
+Route::post('update/self-reflection', 'Mailing\MailingPageController@updateSelfReflection')->name('updateSelfReflection');
+Route::post('remove/self-reflection', 'Mailing\MailingPageController@removeSelfReflection')->name('removeSelfReflection');
+
+
 Route::post('/save-survey-answers', 'API\SurveyLegendController@saveSurveyAnswers');
 Route::match(['GET', 'POST'],'/save-survey-answers', 'API\SurveyLegendController@saveSurveyAnswers');
 

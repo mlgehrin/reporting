@@ -52,6 +52,7 @@ class MailingPageController extends Controller
         }
     }
 
+    // Fix this START
     public function updatePeerReflection(Request $request){
         if($request->has('peer_reflection')){
             $data = htmlentities(trim($request->post('peer_reflection')));
@@ -77,6 +78,33 @@ class MailingPageController extends Controller
             return array('remove_peer_reflection' => true);
         }
     }
+
+    public function updateSelfReflection(Request $request){
+        if($request->has('self_reflection')){
+            $data = htmlentities(trim($request->post('self_reflection')));
+            $users_id = explode(',', $data);
+            foreach ($users_id as $id){
+                $participant = Participant::find($id);
+                $participant->self_reflection = 1;
+                $participant->save();
+            }
+            return array('update_self_reflection' => true);
+        }
+    }
+
+    public function removeSelfReflection(Request $request){
+        if($request->has('self_reflection')){
+            $data = htmlentities(trim($request->post('self_reflection')));
+            $users_id = explode(',', $data);
+            foreach ($users_id as $id){
+                $participant = Participant::find($id);
+                $participant->self_reflection = 0;
+                $participant->save();
+            }
+            return array('update_self_reflection' => true);
+        }
+    }
+    // Fix this END
 
     public function updateParticipantForCompany(Request $request){
         if($request->has('company_id')){

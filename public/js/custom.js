@@ -1,6 +1,7 @@
 $(document).ready(function () {
-    
+
     //send ajax to remove participant in current company
+    function removeParticipant () {
     $('.participant-list').on('click', '#remove-participant', function () {
         let user_id = $(this).data('user-id');
         let data = 'user_id=' + user_id;
@@ -14,7 +15,8 @@ $(document).ready(function () {
                 }
             }.bind(this))
             .catch(error => console.log(error));
-    })
+    })}
+    removeParticipant()
 
     // start mailing for current company ID
     $('#start-mailing').on('click', function (e) {
@@ -40,6 +42,7 @@ $(document).ready(function () {
                 if(response.data.update === true) {
                     $('.block-participant-list #participant-list').remove();
                     $('.block-participant-list').prepend(response.data.participant_list);
+                    removeParticipant()
                 }
                 console.log('update participant',response);
             }.bind(this))

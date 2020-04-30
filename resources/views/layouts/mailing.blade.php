@@ -84,6 +84,7 @@
                                                             <input type="checkbox"
                                                                    class="custom-control-input"
                                                                    id="self-refl-{{ $participant->id }}"
+                                                                   data-user-id="{{ $participant->id }}"
                                                                    name="self_reflection"
                                                                    value="{{ $participant->self_reflection }}"
                                                                    @if($participant->self_reflection == 1)
@@ -100,6 +101,7 @@
                                                             <input
                                                                 type="checkbox"
                                                                 class="custom-control-input"
+                                                                data-user-id="{{ $participant->id }}"
                                                                 id="peer-refl-{{ $participant->id }}"
                                                                 name="peer_reflection"
                                                                 value="{{ $participant->peer_reflection }}"
@@ -128,10 +130,10 @@
                                         Add Participant
                                     </button>
 
-                                    <button type="button" class="btn btn-outline-primary btn-block btn-sm">
+                                    <button type="button" id="selectAllPeerReflections" class="btn btn-outline-primary btn-block btn-sm">
                                         Select All Peer Reflections
                                     </button>
-                                    <button type="button" class="btn btn-outline-primary btn-block btn-sm">
+                                    <button type="button" id="selectAllSelfReflections" class="btn btn-outline-primary btn-block btn-sm">
                                         Select All Self Reflections
                                     </button>
                                 </div>

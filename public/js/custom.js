@@ -43,6 +43,8 @@ $(document).ready(function () {
                     $('.block-participant-list #participant-list').remove();
                     $('.block-participant-list').prepend(response.data.participant_list);
                     removeParticipant()
+                    initPeerReflection()
+                    initSelfReflection()
                 }
                 console.log('update participant',response);
             }.bind(this))
@@ -51,6 +53,89 @@ $(document).ready(function () {
         console.log('update participant', compani_id);
 
     })
+
+    // select ajax to check peer_reflection
+    $('#selectAllPeerReflections').on('click', function (e) {
+        let users_id = (() => {
+            let list = ''
+            document.querySelectorAll(".participant-list input[name='peer_reflection']").forEach( e => {if(!e.checked) {
+                list += (e.dataset.userId + ',')
+                e.checked  = true
+            }})
+            return list.slice(0, -1)
+        })()
+        let data = 'peer_reflection=' + users_id;
+        axios
+            .post('set/peer_reflection', data)
+            .then(function (response) {
+                console.log('set peer_reflection',response);
+            }.bind(this))
+            .catch(error => console.log(error));
+    })
+    function initPeerReflection () {
+        $(".participant-list input[name='peer_reflection']").on('click', function (e) {
+            let user_id = e.target.dataset.userId;
+            let data = 'peer_reflection=' + user_id;
+            if (e.target.checked) {
+                axios
+                    .post('set/peer_reflection', data)
+                    .then(function (response) {
+                        console.log('set peer_reflection',response);
+                    }.bind(this))
+                    .catch(error => console.log(error));
+            } else {
+                axios
+                    .post('remove/peer_reflection', data)
+                    .then(function (response) {
+                        console.log('remove peer_reflection',response);
+                    }.bind(this))
+                    .catch(error => console.log(error));
+            }
+        })
+    }
+    initPeerReflection()
+
+    // select ajax to check self_reflection
+    $('#selectAllSelfReflections').on('click', function (e) {
+        let users_id = (() => {
+            let list = ''
+            document.querySelectorAll(".participant-list input[name='self_reflection']").forEach( e => {if(!e.checked) {
+                list += (e.dataset.userId + ',')
+                e.checked  = true
+            }})
+            return list.slice(0, -1)
+        })()
+        let data = 'peer_reflection=' + users_id;
+        axios
+            .post('set/peer_reflection', data)
+            .then(function (response) {
+                console.log('set peer_reflection',response);
+            }.bind(this))
+            .catch(error => console.log(error));
+    })
+    function initSelfReflection () {
+        $(".participant-list input[name='self_reflection']").on('click', function (e) {
+            let user_id = e.target.dataset.userId;
+            let data = 'peer_reflection=' + user_id;
+            if (e.target.checked) {
+                axios
+                    .post('set/self_reflection', data)
+                    .then(function (response) {
+                        console.log('set self_reflection',response);
+                    }.bind(this))
+                    .catch(error => console.log(error));
+            } else {
+                axios
+                    .post('remove/self_reflection', data)
+                    .then(function (response) {
+                        console.log('remove self_reflection',response);
+                    }.bind(this))
+                    .catch(error => console.log(error));
+            }
+        })
+    }
+    initSelfReflection()
+
 
     // send ajax to remove current company
     $('#remove-company').on('click', function (e) {

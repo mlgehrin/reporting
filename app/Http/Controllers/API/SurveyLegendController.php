@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Participant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PeerList;
+use App\Jobs\SendEmail;
+
 
 
 class SurveyLegendController extends Controller
@@ -36,46 +39,67 @@ class SurveyLegendController extends Controller
         //file_put_contents($path_name,$name); // тут ощибка
         // добавить разные варианты форм $data['survey_id']
         // если это опрос для сбора емайл адресов заходим сюда
-        if($data['survey_id'] = '-M5emlCGrGlnMqIDuEi5'){
+        // Peer Reflection
+        if($data['survey_id'] == '-M5emlCGrGlnMqIDuEi5'){
             if(!empty($data['externalId'])){
-                $data['externalId'] = '234-2';
-                $check_if_isset = strripos($data['externalId'], '-');
-                if ($check_if_isset === false){
+                //$data['externalId'] = '234-2';
+                $check_peer_list = strripos($data['externalId'], '-');
+                if ($check_peer_list === false){
                     $participant_id = $data['externalId'];
-                    $answers = $data['answers'];
-                    $emails = array();
-                    foreach ($answers as $answer) {
-                        if($answer['itemType'] == 'emailBox'){
-                            $emails[] = $answer['value'];
+                    $participant = Participant::find($participant_id);
+                    if(!empty($participant)){
+                        //var_dump($participant);die;
+                        $participant->success_peer_reflection = 1;
+                        $participant->save();
+                        $answers = $data['answers'];
+                        $emails = array();
+                        foreach ($answers as $answer) {
+                            if($answer['itemType'] == 'emailBox'){
+                                $emails[] = $answer['value'];
+                            }
                         }
-                    }
-                    $emails = array_unique($emails);
-                    if(!empty($emails)){
-                        foreach ($emails as $email){
-                            $peer_list_item = new PeerList();
-                            var_dump($email);die;
-                            $peer_list_item->participant_id = $participant_id;
-                            $peer_list_item->email = $email;
-                            $peer_list_item->save();
-                        }
+                        //var_dump($emails);die;
+                        $emails = array_unique($emails);
+                        unset($emails[2]);
+                        //var_dump($emails);die;
+                        if(!empty($emails)){
+                            foreach ($emails as $email){
+                                $peer_list_item = new PeerList();
+                                $peer_list_item->participant_id = $participant_id;
+                                $peer_list_item->email = $email;
+                                $peer_list_item->save();
+                                $peer_list_item_id = $peer_list_item->id;
+                                //var_dump($peer_list_item_id);die;
+                                $id = $participant_id . '-' . $peer_list_item_id;
+                                $template_path = 'mailing.peerList.peerReflection';
+                                SendEmail::dispatch($email, $id, $template_path);
+                            }
 
+                        }
+                        var_dump(55555);die;
                     }
-                    var_dump($emails);die;
+
                 }else{
                     $ids = explode('-', $data['externalId']);
                     $participant_id = $ids[0];
                     $peer_list_item_id = $ids[1];
+                    $peer_list_item = PeerList::find($peer_list_item_id);
+
 
                     var_dump(32234234);die;
                 }
 
             }
         }
-        /// если это простой опрос
-        if($data['survey_id']){
-
+        // Self Reflection
+        if($data['survey_id'] == '-M6VkzN2n37s5LFncIL7'){
+            if (!empty($data['externalId'])){
+                $participant = Participant::find($data['externalId']);
+                if(!empty($participant)){
+                    $participant->success_self_reflection = 1;
+                    $participant->save();
+                }
+            }
         }
-
-
     }
 }

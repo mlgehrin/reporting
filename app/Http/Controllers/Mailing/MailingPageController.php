@@ -195,7 +195,6 @@ class MailingPageController extends Controller
             if(!empty($participants)){
                 $data =  array();
                 foreach ($participants as $participant) {
-                    //var_dump($participant);die;
                     if($participant->self_reflection == 1){
                         $template_path = 'mailing.selfReflection';
                         SendEmail::dispatch($participant->email, $participant->id, $template_path);
@@ -205,8 +204,7 @@ class MailingPageController extends Controller
                         SendEmail::dispatch($participant->email, $participant->id, $template_path);
                     }
                     /*$mail = new MailController();
-                    $response = $mail->sendSurveyInvitations($participant->email, $participant->id);
-                    $data[] = $response;*/
+                    $response = $mail->sendSurveyInvitations($participant->email, $participant->id);*/
                 }
                 return array(
                     'send' => true

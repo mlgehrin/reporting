@@ -20,7 +20,7 @@ $(document).ready(function () {
 
     // start mailing for current company ID
     $('#start-mailing').on('click', function (e) {
-        let compani_id = $('select[name=company_id] option').filter(':selected').val();
+        let compani_id = $('#id-company').val();
         let data = 'company_id=' + compani_id;
         axios
             .post('start-mailing', data)

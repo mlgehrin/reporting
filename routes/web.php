@@ -43,8 +43,8 @@ Route::post('update/self-reflection', 'Mailing\MailingPageController@updateSelfR
 Route::post('remove/self-reflection', 'Mailing\MailingPageController@removeSelfReflection')->name('removeSelfReflection');
 
 
-Route::post('/save-survey-answers', 'API\SurveyLegendController@saveSurveyAnswers');
-Route::match(['GET', 'POST'],'/save-survey-answers', 'API\SurveyLegendController@saveSurveyAnswers');
+//Route::post('/save-survey-answers', 'API\SurveyLegendController@saveSurveyAnswers');
+//Route::match(['GET', 'POST'],'/save-survey-answers', 'API\SurveyLegendController@saveSurveyAnswers');
 
 //Route::resource('companies', 'CompanyController');
 //Route::resource('participants', 'ParticipantController');

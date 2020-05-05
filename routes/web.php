@@ -51,3 +51,6 @@ Route::post('remove/self-reflection', 'Mailing\MailingPageController@removeSelfR
 
 //Route::resource('companies', 'CompanyController');
 //Route::resource('participants', 'ParticipantController');
+
+//Route::get('test', 'Mailing\ReminderController@reminderForSelfReflection');
+

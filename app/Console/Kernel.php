@@ -4,6 +4,10 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Console\Commands\SendReminderForSelfReflection;
+use App\Console\Commands\SendReminderForPeerCollection;
+use App\Console\Commands\SendReminderForPeerReflection;
+
 
 class Kernel extends ConsoleKernel
 {
@@ -13,7 +17,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        SendReminderForSelfReflection::class,
+        SendReminderForPeerCollection::class,
+        SendReminderForPeerReflection::class,
+
     ];
 
     /**
@@ -24,8 +31,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('send:selfReflectionReminder')->everyMinute();
+        $schedule->command('send:peerCollectionReminder')->everyMinute();
+        $schedule->command('send:peerReflectionReminder')->everyMinute();
+        //$schedule->command('send:selfReflectionReminder')->everyFiveMinutes();
     }
 
     /**

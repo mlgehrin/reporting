@@ -12,6 +12,12 @@ use App\Jobs\SendEmail;
 
 class MailingPageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     function LoadPageData(){
         $companies = Company::all();
         $company = $companies->first();

@@ -193,14 +193,19 @@ class MailingPageController extends Controller
             $participants = Participant::where('company_id', $company_id)->get();
 
             if(!empty($participants)){
-                $data =  array();
+
                 foreach ($participants as $participant) {
+
                     if($participant->self_reflection == 1){
                         $template_path = 'mailing.selfReflection';
+                        $participant->counter_sending_self_reflection = $participant->counter_sending_self_reflection + 1;
+                        $participant->save();
                         SendEmail::dispatch($participant->email, $participant->id, $template_path);
                     }
                     if($participant->peer_reflection == 1){
-                        $template_path = 'mailing.peerReflection';
+                        $participant->counter_sending_peer_reflection = $participant->counter_sending_peer_reflection + 1;
+                        $participant->save();
+                        $template_path = 'mailing.peerCollection';
                         SendEmail::dispatch($participant->email, $participant->id, $template_path);
                     }
                     /*$mail = new MailController();

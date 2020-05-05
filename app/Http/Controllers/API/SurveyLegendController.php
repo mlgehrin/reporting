@@ -13,33 +13,16 @@ use App\Jobs\SendEmail;
 class SurveyLegendController extends Controller
 {
     public function saveSurveyAnswers (Request $request) {
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
 
-        //$json = json_decode($request->getContent(), true);
-        //$name = $request->input();
-        //$path_name = './name.txt';
-
-        /*$get = $_GET['id'];
-        $path_get = './get.txt';
-        file_put_contents($path_get, serialize($get));*/
-
-
-        /*$data_json = file_get_contents('php://input');
+        $data_json = file_get_contents('php://input');
         $data = json_decode($data_json, true);
-        $path_json = './json.txt';
+
+        /*$path_json = './json.txt';
         file_put_contents($path_json,serialize($data));
-        die;*/
-
         $file = file_get_contents('./json.txt');
-        $data = unserialize($file);
+        $data = unserialize($file);*/
 
-
-        //file_put_contents($path_name,$name); // тут ощибка
-        // добавить разные варианты форм $data['survey_id']
-        // если это опрос для сбора емайл адресов заходим сюда
-        // Peer Reflection
+        // Peer Collection for participant
         if($data['survey_id'] == '-M5emlCGrGlnMqIDuEi5'){
             if(!empty($data['externalId'])){
                 //$data['externalId'] = '234-2';
@@ -50,7 +33,7 @@ class SurveyLegendController extends Controller
                     if(!empty($participant)){
                         //var_dump($participant);die;
                         $participant->success_peer_reflection = 1;
-                        $participant->save();
+
                         $answers = $data['answers'];
                         $emails = array();
                         foreach ($answers as $answer) {
@@ -60,13 +43,14 @@ class SurveyLegendController extends Controller
                         }
                         //var_dump($emails);die;
                         $emails = array_unique($emails);
-                        unset($emails[2]);
+                        //unset($emails[2]);
                         //var_dump($emails);die;
                         if(!empty($emails)){
                             foreach ($emails as $email){
                                 $peer_list_item = new PeerList();
                                 $peer_list_item->participant_id = $participant_id;
                                 $peer_list_item->email = $email;
+                                $peer_list_item->counter_sending_peer_reflection = $peer_list_item->counter_sending_peer_reflection + 1;
                                 $peer_list_item->save();
                                 $peer_list_item_id = $peer_list_item->id;
                                 //var_dump($peer_list_item_id);die;
@@ -74,24 +58,31 @@ class SurveyLegendController extends Controller
                                 $template_path = 'mailing.peerList.peerReflection';
                                 SendEmail::dispatch($email, $id, $template_path);
                             }
-
+                            $participant->status_peer_list = 1;
                         }
-                        var_dump(55555);die;
+                        $participant->save();
                     }
-
-                }else{
-                    $ids = explode('-', $data['externalId']);
-                    $participant_id = $ids[0];
-                    $peer_list_item_id = $ids[1];
-                    $peer_list_item = PeerList::find($peer_list_item_id);
-
-
-                    var_dump(32234234);die;
                 }
-
+                response('',200);
             }
         }
-        // Self Reflection
+
+        // Peer Reflection for peer list
+        if($data['survey_id'] == '-M6ZX1eqM4oJLyOMXs9c'){
+            if(!empty($data['externalId'])){
+                $ids = explode('-', $data['externalId']);
+                $participant_id = $ids[0];
+                $peer_list_item_id = $ids[1];
+                $peer_list_item = PeerList::find($peer_list_item_id);
+                if(!empty($peer_list_item)){
+                    $peer_list_item->success_peer_reflection = 1;
+                    $peer_list_item->save();
+                }
+                response('',200);
+            }
+        }
+
+        // Self Reflection for participant
         if($data['survey_id'] == '-M6VkzN2n37s5LFncIL7'){
             if (!empty($data['externalId'])){
                 $participant = Participant::find($data['externalId']);
@@ -99,6 +90,7 @@ class SurveyLegendController extends Controller
                     $participant->success_self_reflection = 1;
                     $participant->save();
                 }
+                response('',200);
             }
         }
     }

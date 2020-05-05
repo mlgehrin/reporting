@@ -18,6 +18,7 @@ class CreatePeerListTable extends Migration
             $table->bigInteger('participant_id')->unsigned();
             $table->string('email');
             $table->integer('peer_reflection')->unsigned()->default(1);
+            $table->integer('counter_sending_peer_reflection')->unsigned()->default(0);
             $table->integer('success_peer_reflection')->unsigned()->default(0);
             $table->integer('reminder_peer_reflection')->unsigned()->default(0);
             $table->timestamps();

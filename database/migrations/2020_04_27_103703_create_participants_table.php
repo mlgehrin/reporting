@@ -20,11 +20,14 @@ class CreateParticipantsTable extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->integer('self_reflection')->unsigned()->default(1);
+            $table->integer('counter_sending_self_reflection')->unsigned()->default(0);
             $table->integer('success_self_reflection')->unsigned()->default(0);
             $table->integer('reminder_self_reflection')->unsigned()->default(0);
             $table->integer('peer_reflection')->unsigned()->default(1);
+            $table->integer('counter_sending_peer_reflection')->unsigned()->default(0);
             $table->integer('success_peer_reflection')->unsigned()->default(0);
             $table->integer('reminder_peer_reflection')->unsigned()->default(0);
+            $table->integer('status_peer_list')->unsigned()->default(0);
             //$table->string('peer_collection')->default('test');
             $table->timestamps();
             $table->index('first_name');

@@ -36,14 +36,13 @@ class CsvController extends Controller
                         $participant->company_id = $company_id;
                         $participant->first_name = $data[0];
                         $participant->last_name = $data[1];
-                        $participant->email = $data[2];
+                        $participant->email = trim($data[2]);
                         $participant->save();
                     }
                 }
 
                 return array('save_file' => true);
-                /*$page = new MailingPageController();
-                return $page->LoadPageData();*/
+
             }
             return array('save_file' => false);
         }

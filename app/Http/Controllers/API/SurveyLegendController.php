@@ -37,8 +37,8 @@ class SurveyLegendController extends Controller
                         $answers = $data['answers'];
                         $emails = array();
                         foreach ($answers as $answer) {
-                            if($answer['itemType'] == 'emailBox' && !empty($answer['itemType'])){
-                                $emails[] = $answer['value'];
+                            if($answer['itemType'] == 'emailBox' && !empty($answer['value'])){
+                                $emails[] = trim($answer['value']);
                             }
                         }
                         //var_dump($emails);die;

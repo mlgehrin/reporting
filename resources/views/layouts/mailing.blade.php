@@ -1,5 +1,5 @@
 @extends('layouts.app')
-<?php //var_dump($_POST);//dd($_POST); ?>
+<?php //dd($participants);//var_dump($_POST); ?>
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -90,13 +90,13 @@
                                                     <td>
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox"
-                                                                   class="custom-control-input"
-                                                                   id="self-refl-{{ $participant->id }}"
-                                                                   data-user-id="{{ $participant->id }}"
-                                                                   name="self_reflection"
-                                                                   value="{{ $participant->self_reflection }}"
-                                                                   @if($participant->self_reflection == 1)
-                                                                   checked="checked"
+                                                                class="custom-control-input"
+                                                                id="self-refl-{{ $participant->id }}"
+                                                                data-user-id="{{ $participant->id }}"
+                                                                name="self_reflection"
+                                                                value="{{ $participant->self_reflection }}"
+                                                                @if($participant->self_reflection == 1)
+                                                                    checked="checked"
                                                                 @endif
                                                             >
                                                             <label class="custom-control-label"
@@ -104,6 +104,11 @@
                                                                 Reflection</label>
                                                         </div>
                                                     </td>
+                                                    @if($participant->data_send_self_reflection === null)
+                                                        <td>not sent</td>
+                                                    @else
+                                                        <td>{{ $participant->data_send_self_reflection }}</td>
+                                                    @endif
                                                     <td>
                                                         <div class="custom-control custom-checkbox">
                                                             <input
@@ -114,7 +119,7 @@
                                                                 name="peer_reflection"
                                                                 value="{{ $participant->peer_reflection }}"
                                                                 @if($participant->peer_reflection == 1)
-                                                                checked="checked"
+                                                                    checked="checked"
                                                                 @endif
                                                             >
                                                             <label class="custom-control-label"
@@ -122,6 +127,11 @@
                                                                 Reflection</label>
                                                         </div>
                                                     </td>
+                                                    @if($participant->data_send_peer_reflection === null)
+                                                        <td>not sent</td>
+                                                    @else
+                                                        <td>{{ $participant->data_send_peer_reflection }}</td>
+                                                    @endif
                                                     <td id="remove-participant" data-user-id="{{ $participant->id }}">
                                                         <button class="btn btn-outline-danger btn-sm">Remove</button>
                                                     </td>

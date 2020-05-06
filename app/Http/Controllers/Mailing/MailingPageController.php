@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Mailing\MailController;
 use App\Jobs\SendEmail;
+use Carbon\Carbon;
 
 class MailingPageController extends Controller
 {
@@ -125,6 +126,8 @@ class MailingPageController extends Controller
                             $num = ++$key;
                             $checked_self_reflection = $participant->self_reflection == 1?'checked="checked"':'';
                             $checked_peer_reflection = $participant->peer_reflection == 1?'checked="checked"':'';
+                            $data_send_self_reflection = $participant->data_send_self_reflection === null?'not sent':$participant->data_send_self_reflection;
+                            $data_send_peer_reflection = $participant->data_send_peer_reflection === null?'not sent':$participant->data_send_peer_reflection;
                             $html .= '<tr class="item-row-' . $participant->id . '">';
                                 $html .= '<td>' . $num . '</td>';
                                 $html .= '<td>' . $participant->first_name . '</td>';
@@ -140,6 +143,7 @@ class MailingPageController extends Controller
                                         $html .= '<label class="custom-control-label" for="self-refl-' . $participant->id . '">Self Reflection</label>';
                                     $html .= '</div>';
                                 $html .= '</td>';
+                                $html .= '<td>' . $data_send_self_reflection . '</td>';
                                 $html .= '<td>';
                                     $html .= '<div class="custom-control custom-checkbox">';
                                         $html .= '<input type="checkbox"
@@ -150,6 +154,7 @@ class MailingPageController extends Controller
                                         $html .= '<label class="custom-control-label" for="peer-refl-' . $participant->id . '">Peer Reflection</label>';
                                     $html .= '</div>';
                                 $html .= '</td>';
+                                $html .= '<td>' . $data_send_peer_reflection . '</td>';
                                 $html .= '<td id="remove-participant" data-user-id="' . $participant->id . '">';
                                     $html .= '<button class="btn btn-outline-danger btn-sm">Remove</button>';
                                 $html .= '</td>';
@@ -203,13 +208,15 @@ class MailingPageController extends Controller
                 foreach ($participants as $participant) {
 
                     if($participant->self_reflection == 1){
-                        $template_path = 'mailing.selfReflection';
                         $participant->counter_sending_self_reflection = $participant->counter_sending_self_reflection + 1;
+                        $participant->data_send_self_reflection = Carbon::now('-7:00');
                         $participant->save();
+                        $template_path = 'mailing.selfReflection';
                         SendEmail::dispatch($participant->email, $participant->id, $template_path);
                     }
                     if($participant->peer_reflection == 1){
                         $participant->counter_sending_peer_reflection = $participant->counter_sending_peer_reflection + 1;
+                        $participant->data_send_peer_reflection = Carbon::now('-7:00');
                         $participant->save();
                         $template_path = 'mailing.peerCollection';
                         SendEmail::dispatch($participant->email, $participant->id, $template_path);

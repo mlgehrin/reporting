@@ -13,7 +13,7 @@ class ReminderController extends Controller
 {
     public static function reminderForSelfReflection(){
 
-        $participants = Participant::where([['self_reflection', '1'], ['success_self_reflection', '0']])->get();
+        $participants = Participant::where([['self_reflection', '1'], ['success_self_reflection', '0'], ['unsubscribed_self_reflection', '0']])->get();
 
         if(!empty($participants)){
             foreach ($participants as $participant) {
@@ -28,7 +28,7 @@ class ReminderController extends Controller
 
     public static function reminderForPeerCollection(){
 
-        $participants = Participant::where([['peer_reflection', '1'], ['success_peer_reflection', '0']])->get();
+        $participants = Participant::where([['peer_reflection', '1'], ['success_peer_reflection', '0'], ['unsubscribed_peer_reflection', '0']])->get();
 
         if(!empty($participants)){
             foreach ($participants as $participant) {
@@ -43,7 +43,7 @@ class ReminderController extends Controller
 
     public static function reminderForPeerReflection(){
 
-        $peer_list = PeerList::where([['peer_reflection', '1'], ['success_peer_reflection', '0']])->get();
+        $peer_list = PeerList::where([['peer_reflection', '1'], ['success_peer_reflection', '0'], ['unsubscribed_peer_reflection', '0']])->get();
 
         if(!empty($peer_list)){
             foreach ($peer_list as $peer_list_item) {

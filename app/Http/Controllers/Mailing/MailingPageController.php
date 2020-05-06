@@ -209,14 +209,14 @@ class MailingPageController extends Controller
 
                 foreach ($participants as $participant) {
 
-                    if($participant->self_reflection == 1){
+                    if($participant->self_reflection == 1 && $participant->unsubscribed_self_reflection == 0){
                         $participant->counter_sending_self_reflection = $participant->counter_sending_self_reflection + 1;
                         $participant->data_send_self_reflection = Carbon::now('-7:00');
                         $participant->save();
                         $template_path = 'mailing.selfReflection';
                         SendEmail::dispatch($participant->email, $participant->id, $template_path);
                     }
-                    if($participant->peer_reflection == 1){
+                    if($participant->peer_reflection == 1 && $participant->unsubscribed_peer_reflection == 0){
                         $participant->counter_sending_peer_reflection = $participant->counter_sending_peer_reflection + 1;
                         $participant->data_send_peer_reflection = Carbon::now('-7:00');
                         $participant->save();

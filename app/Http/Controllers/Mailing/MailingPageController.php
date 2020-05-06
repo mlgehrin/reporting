@@ -36,6 +36,7 @@ class MailingPageController extends Controller
 
     public function createParticipant(ParticipantCreateRequest $request)
     {
+
         $data = $request->input();
         $participant = new Participant();
         $participant->company_id = $data['company_id'];
@@ -44,10 +45,11 @@ class MailingPageController extends Controller
         $participant->email = $data['email'];
         $participant->self_reflection = !empty($data['self_reflection'])?1:0;
         $participant->peer_reflection = !empty($data['peer_reflection'])?1:0;
-        //$participant->peer_collection = 'test';
+
         $participant->save();
 
-        return $this->LoadPageData()->with('status', 'Participant added successfully!');
+        return array('create_user' => true);
+        //return $this->LoadPageData()->with('status', 'Participant added successfully!');
     }
 
     public function removeParticipant(Request $request){

@@ -16,7 +16,7 @@
                     {{--START block upload csv--}}
                     <div class="block-upload-csv">
                         <div class="card-body">
-                            <form action="{{ route('saveCsvFile') }}" method="POST" enctype="multipart/form-data">
+                            <form action="" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <div class='row'>
                                         <div class="col-9">
@@ -175,7 +175,7 @@
                                                 <div class="participant-add">
                                                     {{--START form for adding participant--}}
                                                     @if(@isset($companies))
-                                                        <form action="{{ route('createParticipant') }}"
+                                                        <form action=""
                                                               id="participant-add"
                                                               method="POST">
                                                             <div class="form-row">
@@ -206,8 +206,8 @@
                                                                            name="last_name">
                                                                 </div>
                                                                 <div class="form-group col-12">
-                                                                    <label for="user-name">Participant email</label>
-                                                                    <input class="form-control" id="user-name"
+                                                                    <label for="user-email">Participant email</label>
+                                                                    <input class="form-control" id="user-email"
                                                                            type="email" name="email"
                                                                            placeholder="name@example.com">
                                                                 </div>
@@ -228,17 +228,21 @@
                                                                         Reflection</label>
                                                                 </div>
                                                             </div>
-                                                            <button type="submit" onSubmit="document.orderform1.reset()"
+                                                            {{--<button type="submit" onSubmit="document.orderform1.reset()"
                                                                     class="d-none"
                                                                     id="addParticipantSubmitButton">
-                                                            </button>
+                                                            </button>--}}
                                                         </form>
                                                     @else
                                                         <div>Companies list is empty!</div>
                                                     @endif
                                                     {{--END form for adding participant--}}
                                                 </div>
+
                                         </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div id="form-errors" class="col-12"></div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close

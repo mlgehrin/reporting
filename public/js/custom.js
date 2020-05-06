@@ -25,7 +25,6 @@ $(document).ready(function () {
         axios
             .post('start-mailing', data)
             .then(function (response) {
-                console.log(response);
                 $('#sendSuccessful').html(
                     '<div class="alert alert-success alert-dismissible fade show" role="alert">\n' +
                     '    Sending was successful\n' +
@@ -58,8 +57,6 @@ $(document).ready(function () {
             }.bind(this))
             .catch(error => console.log(error));
         //e.preventDefault();
-        console.log('update participant', compani_id);
-
     })
 
     // select ajax to check peer_reflection
@@ -77,12 +74,12 @@ $(document).ready(function () {
             axios
                 .post('update/peer-reflection', data)
                 .then(function (response) {
-                    console.log('set peer_reflection',response);
                 }.bind(this))
                 .catch(error => console.log(error));
         }
 
     })
+
     function initPeerReflection () {
         $(".participant-list input[name='peer_reflection']").on('click', function (e) {
             let user_id = e.target.dataset.userId;
@@ -91,14 +88,12 @@ $(document).ready(function () {
                 axios
                     .post('update/peer-reflection', data)
                     .then(function (response) {
-                        console.log('set peer_reflection',response);
                     }.bind(this))
                     .catch(error => console.log(error));
             } else {
                 axios
                     .post('remove/peer-reflection', data)
                     .then(function (response) {
-                        console.log('remove peer_reflection',response);
                     }.bind(this))
                     .catch(error => console.log(error));
             }
@@ -122,11 +117,11 @@ $(document).ready(function () {
             axios
                 .post('update/self-reflection', data)
                 .then(function (response) {
-                    console.log('set self_reflection', response);
                 }.bind(this))
                 .catch(error => console.log(error));
         }
     })
+
     function initSelfReflection () {
         $(".participant-list input[name='self_reflection']").on('click', function (e) {
             let user_id = e.target.dataset.userId;
@@ -135,14 +130,12 @@ $(document).ready(function () {
                 axios
                     .post('update/self-reflection', data)
                     .then(function (response) {
-                        console.log('set self_reflection',response);
                     }.bind(this))
                     .catch(error => console.log(error));
             } else {
                 axios
                     .post('remove/self-reflection', data)
                     .then(function (response) {
-                        console.log('remove self_reflection',response);
                     }.bind(this))
                     .catch(error => console.log(error));
             }
@@ -164,11 +157,9 @@ $(document).ready(function () {
                     $('#id-company').change();
                     //let current_option $("select[name=id-company] option[value='2']").attr('selected', 'true')
                 }
-                console.log('remove', response);
             }.bind(this))
             .catch(error => console.log(error));
         e.preventDefault();
-        console.log('remove', compani_id);
     })
 
     // send ajax for save csv file and parse file data
@@ -189,13 +180,12 @@ $(document).ready(function () {
                 type: 'post',
                 success: function(response){
                     if(response.save_file === true){
-                        window.location.replace('/');
                         $('#fileSuccessful').html(
                             '<div class="alert alert-success alert-dismissible fade show" role="alert">\n' +
                             '    File saved successfully!\n' +
                             '</div>'
                         )
-                        setTimeout( function() {window.location.replace('/')}, 10000)
+                        setTimeout( function() {window.location.replace('/')}, 3000)
                     }
                 }
             });
@@ -205,5 +195,38 @@ $(document).ready(function () {
 
     $('#csv-file').on('change', (e) => $('#csv-file + .custom-file-label').text(e.target.value))
 
-    $('#addParticipantModalButton').on('click', () => $('#addParticipantSubmitButton').click())
+    //$('#addParticipantModalButton').on('click', () => $('#addParticipantSubmitButton').click())
+
+    //send ajax for create new paticipant
+    $('#addParticipantModalButton').on('click', function (e) {
+
+        let data = $('#participant-add').serialize();
+        axios
+            .post('create/participant', data)
+            .then(function (response) {
+                if(response.data.create_user === true){
+                    $('#addParticipant .close').click();
+                    $('#sendSuccessful').html(
+                        '<div class="alert alert-success alert-dismissible fade show" role="alert">\n' +
+                        '    Success add new paticipant\n' +
+                        '    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                        '        <span aria-hidden="true">&times;</span>\n' +
+                        '    </button>\n' +
+                        '</div>'
+                    )
+                    setTimeout( function() {window.location.replace('/')}, 3000)
+                }
+            }.bind(this))
+            .catch(function (error) {
+                $('#form-errors').html(
+                    '<div class="alert alert-danger alert-dismissible fade show" role="alert">\n' +
+                    '    Please fill out the form!\n' +
+                    '    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                    '        <span aria-hidden="true">&times;</span>\n' +
+                    '    </button>\n' +
+                    '</div>'
+                )
+            });
+        e.preventDefault();
+    })
 });

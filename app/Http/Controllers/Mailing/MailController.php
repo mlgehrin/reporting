@@ -11,23 +11,48 @@ use App\Models\PeerList;
 
 class MailController extends Controller
 {
-    public function sendSurveyInvitations($email, $user_id) {
+   /* public function sendSurveyInvitations($email, $user_id) {
         Mail::to($email)->send(new Surveys($user_id));
 
         return 'success';
-    }
+    }*/
 
-    // add function for another surveys
-
-    public function unsubscribe($user_id) {
+    public function unsubscribeSelfReflection($user_id) {
         $user_id = htmlentities(trim($user_id));
-        $result = Participant::where('id', $user_id)->delete();
+        $participant = Participant::find($user_id);
+        if($participant->unsubscribed_self_reflection == 0){
+            $participant->unsubscribed_self_reflection = 1;
+            $result = $participant->save();
+        }else{
+            $result = false;
+        }
         return view('mailing.unsubscribe', compact('result'));
     }
 
+    //  for participant PeerCollection equally PeerReflection
+    public function unsubscribePeerCollection($user_id) {
+        $user_id = htmlentities(trim($user_id));
+        $participant = Participant::find($user_id);
+        if($participant->unsubscribed_peer_reflection == 0){
+            $participant->unsubscribed_peer_reflection = 1;
+            $result = $participant->save();
+        }else{
+            $result = false;
+        }
+        return view('mailing.unsubscribe', compact('result'));
+    }
+
+
+
     public function unsubscribePeerList($user_id) {
         $user_id = htmlentities(trim($user_id));
-        $result = PeerList::where('id', $user_id)->delete();
+        $peer_list_item = PeerList::find($user_id);
+        if($peer_list_item->unsubscribed_peer_reflection == 0){
+            $peer_list_item->unsubscribed_peer_reflection = 1;
+            $result = $peer_list_item->save();
+        }else{
+            $result = false;
+        }
         return view('mailing.unsubscribe', compact('result'));
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @php //dd($result); @endphp
 @section('content')
-    @if($result == 1)
+    @if($result === true)
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12">

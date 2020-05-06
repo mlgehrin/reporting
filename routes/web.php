@@ -33,7 +33,9 @@ Route::post('remove/company', 'Mailing\MailingPageController@removeCompany')->na
 
 Route::post('update/participant', 'Mailing\MailingPageController@updateParticipantForCompany')->name('updateParticipantForCompany');
 
-Route::get('unsubscribe/{user_id}', 'Mailing\MailController@unsubscribe');
+Route::get('unsubscribe/self-reflection/{user_id}', 'Mailing\MailController@unsubscribeSelfReflection');
+
+Route::get('unsubscribe/peer-collection/{user_id}', 'Mailing\MailController@unsubscribePeerCollection');
 
 Route::get('unsubscribe/peer-list/{user_id}', 'Mailing\MailController@unsubscribePeerList');
 

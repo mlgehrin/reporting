@@ -132,8 +132,7 @@ class MailingPageController extends Controller
                             $data_send_peer_reflection = $participant->data_send_peer_reflection === null?'not sent':$participant->data_send_peer_reflection;
                             $html .= '<tr class="item-row-' . $participant->id . '">';
                                 $html .= '<td class="align-middle"><small>' . $num . '</small></td>';
-                                $html .= '<td class="align-middle">' . $participant->first_name;
-                                $html .= $participant->last_name . '</td>';
+                                $html .= '<td class="align-middle">' . $participant->first_name . ' ' . $participant->last_name . '</td>';
                                 $html .= '<td class="align-middle">' . $participant->email . '</td>';
                                 $html .= '<td>';
                                     $html .= '<div class="custom-control custom-checkbox"><div class="row">';

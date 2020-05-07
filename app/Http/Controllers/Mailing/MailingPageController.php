@@ -122,8 +122,8 @@ class MailingPageController extends Controller
 
             if(!empty($participants)){
                 $html = '';
-                $html .= '<div id="participant-list" class="list col-9">';
-                    $html .= '<table class="participant-list table table-striped">';
+                $html .= '<div id="participant-list" class="list col-10">';
+                    $html .= '<table class="participant-list table table-striped table-sm">';
                         foreach ($participants as $key => $participant) {
                             $num = ++$key;
                             $checked_self_reflection = $participant->self_reflection == 1?'checked="checked"':'';
@@ -131,33 +131,33 @@ class MailingPageController extends Controller
                             $data_send_self_reflection = $participant->data_send_self_reflection === null?'not sent':$participant->data_send_self_reflection;
                             $data_send_peer_reflection = $participant->data_send_peer_reflection === null?'not sent':$participant->data_send_peer_reflection;
                             $html .= '<tr class="item-row-' . $participant->id . '">';
-                                $html .= '<td>' . $num . '</td>';
-                                $html .= '<td>' . $participant->first_name . '</td>';
-                                $html .= '<td>' . $participant->last_name . '</td>';
-                                $html .= '<td>' . $participant->email . '</td>';
+                                $html .= '<td class="align-middle"><small>' . $num . '</small></td>';
+                                $html .= '<td class="align-middle">' . $participant->first_name;
+                                $html .= $participant->last_name . '</td>';
+                                $html .= '<td class="align-middle">' . $participant->email . '</td>';
                                 $html .= '<td>';
-                                    $html .= '<div class="custom-control custom-checkbox">';
+                                    $html .= '<div class="custom-control custom-checkbox"><div class="row">';
                                         $html .= '<input type="checkbox"
                                         class="custom-control-input"
                                         id="self-refl-' . $participant->id . '"
                                         name="self_reflection"
                                         value="' . $participant->self_reflection . '" ' . $checked_self_reflection . '>';
                                         $html .= '<label class="custom-control-label" for="self-refl-' . $participant->id . '">Self Reflection</label>';
-                                    $html .= '</div>';
+                                    $html .= '</div></div>';
+                                    $html .= '<div class="row"><small>' . $data_send_self_reflection . '</small></div>';
                                 $html .= '</td>';
-                                $html .= '<td>' . $data_send_self_reflection . '</td>';
                                 $html .= '<td>';
-                                    $html .= '<div class="custom-control custom-checkbox">';
+                                    $html .= '<div class="custom-control custom-checkbox"><div class="row">';
                                         $html .= '<input type="checkbox"
                                         class="custom-control-input"
                                         id="peer-refl-' . $participant->id . '"
                                         name="peer_reflection"
                                         value="' . $participant->peer_reflection . '" ' . $checked_peer_reflection . '>';
                                         $html .= '<label class="custom-control-label" for="peer-refl-' . $participant->id . '">Peer Reflection</label>';
-                                    $html .= '</div>';
+                                    $html .= '</div></div>';
+                                    $html .= '<div class="row"><small>' . $data_send_peer_reflection . '</small></div>';
                                 $html .= '</td>';
-                                $html .= '<td>' . $data_send_peer_reflection . '</td>';
-                                $html .= '<td id="remove-participant" data-user-id="' . $participant->id . '">';
+                                $html .= '<td id="remove-participant" data-user-id="' . $participant->id . '" class="align-middle">';
                                     $html .= '<button class="btn btn-outline-danger btn-sm">Remove</button>';
                                 $html .= '</td>';
 

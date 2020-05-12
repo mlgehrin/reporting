@@ -14,24 +14,13 @@ class SurveyLegendController extends Controller
 {
     public function saveSurveyAnswers (Request $request) {
 
-        /*$file = file_get_contents('./json.txt');
-        $data = unserialize($file);*/
-        //var_dump($data);die;
-
         $data_json = file_get_contents('php://input');
         $data = json_decode($data_json, true);
-
-        /*$path_json = './json.txt';
-        file_put_contents($path_json,serialize($data));*/
-
-        /*response('',200);
-        var_dump(1);die;*/
 
         /*$path_json = './json.txt';
         file_put_contents($path_json,serialize($data));
         $file = file_get_contents('./json.txt');
         $data = unserialize($file);*/
-
 
         // Self Reflection for participant (typeform)
         if($data['form_response']['form_id'] == 'A6kAYZ'){

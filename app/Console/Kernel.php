@@ -31,10 +31,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('send:selfReflectionReminder')->everyMinute();
-        $schedule->command('send:peerCollectionReminder')->everyMinute();
-        $schedule->command('send:peerReflectionReminder')->everyMinute();
-        //$schedule->command('send:selfReflectionReminder')->everyFiveMinutes();
+        $schedule->command('send:selfReflectionReminder')->cron('0 20 */2 * *');
+        $schedule->command('send:peerCollectionReminder')->cron('0 20 */2 * *');
+        $schedule->command('send:peerReflectionReminder')->cron('0 20 */2 * *');
     }
 
     /**

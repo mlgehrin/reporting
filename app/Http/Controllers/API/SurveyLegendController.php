@@ -17,6 +17,7 @@ class SurveyLegendController extends Controller
         $data_json = file_get_contents('php://input');
         $data = json_decode($data_json, true);
 
+        // for tests
         /*$path_json = './json.txt';
         file_put_contents($path_json,serialize($data));
         $file = file_get_contents('./json.txt');
@@ -62,7 +63,6 @@ class SurveyLegendController extends Controller
                     $participant_id = htmlentities(trim($data['form_response']['hidden']['participant_id']));
                     $participant = Participant::find($participant_id);
                     if(!empty($participant) && !empty($data['form_response']['answers'])){
-                        //var_dump($participant);die;
                         $participant->success_peer_reflection = 1;
 
                         $answers = $data['form_response']['answers'];
@@ -75,16 +75,20 @@ class SurveyLegendController extends Controller
                         $emails = array_unique($emails);
                         if(!empty($emails)){
                             foreach ($emails as $email){
-                                $peer_list_item = new PeerList();
-                                $peer_list_item->participant_id = $participant_id;
-                                $peer_list_item->email = $email;
-                                $peer_list_item->counter_sending_peer_reflection = $peer_list_item->counter_sending_peer_reflection + 1;
-                                $peer_list_item->save();
-                                $peer_list_item_id = $peer_list_item->id;
-                                //var_dump($peer_list_item_id);die;
-                                $id = $participant_id . '-' . $peer_list_item_id;
-                                $template_path = 'mailing.peerList.peerReflection';
-                                SendEmail::dispatch($email, $id, $template_path);
+                                $count_duplicate = PeerList::where('email', $email)->count();
+                                if($count_duplicate >= 5){
+                                    continue;
+                                }else{
+                                    $peer_list_item = new PeerList();
+                                    $peer_list_item->participant_id = $participant_id;
+                                    $peer_list_item->email = $email;
+                                    $peer_list_item->counter_sending_peer_reflection = $peer_list_item->counter_sending_peer_reflection + 1;
+                                    $peer_list_item->save();
+                                    $peer_list_item_id = $peer_list_item->id;
+                                    $id = $participant_id . '-' . $peer_list_item_id;
+                                    $template_path = 'mailing.peerList.peerReflection';
+                                    SendEmail::dispatch($email, $id, $template_path);
+                                }
                             }
                             $participant->status_peer_list = 1;
                         }

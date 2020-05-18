@@ -11,13 +11,7 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');*/
+//Auth::routes();
 
 Route::get('/', 'Mailing\MailingPageController@LoadPageData')->name('mainPage');
 
@@ -52,5 +46,5 @@ Route::post('remove/self-reflection', 'Mailing\MailingPageController@removeSelfR
 //Route::resource('companies', 'CompanyController');
 //Route::resource('participants', 'ParticipantController');
 
-//Route::get('test', 'Mailing\ReminderController@reminderForSelfReflection');
+//Route::get('test', 'Mailing\ReminderController@reminderForPeerReflection');
 

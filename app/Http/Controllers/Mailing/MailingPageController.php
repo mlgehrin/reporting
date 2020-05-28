@@ -215,9 +215,10 @@ class MailingPageController extends Controller
                         $participant->save();
                         $template_path = 'mailing.selfReflection';
                         $id_form_self_reflection = $company->id_form_self_reflection;
-
+                        $first_name = $participant->first_name;
+                        $last_name = $participant->last_name;
                         if(!empty($id_form_self_reflection)){
-                            SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_self_reflection);
+                            SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_self_reflection, $first_name, $last_name);
                         }
 
                     }
@@ -227,13 +228,12 @@ class MailingPageController extends Controller
                         $participant->save();
                         $template_path = 'mailing.peerCollection';
                         $id_form_peer_collection = $company->id_form_peer_collection;
-
+                        $first_name = $participant->first_name;
+                        $last_name = $participant->last_name;
                         if(!empty($id_form_peer_collection)){
-                            SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_peer_collection);
+                            SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_peer_collection, $first_name, $last_name);
                         }
                     }
-                    /*$mail = new MailController();
-                    $response = $mail->sendSurveyInvitations($participant->email, $participant->id);*/
                 }
                 return array(
                     'send' => true

@@ -23,8 +23,10 @@ class ReminderController extends Controller
                 $id_form_self_reflection = $company->id_form_self_reflection;
                 $participant->reminder_self_reflection = $participant->reminder_self_reflection + 1;
                 $participant->save();
+                $first_name = $participant->first_name;
+                $last_name = $participant->last_name;
                 if(!empty($id_form_self_reflection)){
-                    SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_self_reflection);
+                    SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_self_reflection, $first_name, $last_name);
                 }
             }
         }
@@ -42,8 +44,10 @@ class ReminderController extends Controller
                 $id_form_peer_collection = $company->id_form_peer_collection;
                 $participant->reminder_peer_reflection = $participant->reminder_peer_reflection + 1;
                 $participant->save();
+                $first_name = $participant->first_name;
+                $last_name = $participant->last_name;
                 if(!empty($id_form_peer_collection)){
-                    SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_peer_collection);
+                    SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_peer_collection, $first_name, $last_name);
                 }
             }
         }

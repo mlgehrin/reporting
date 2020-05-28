@@ -69,7 +69,6 @@ class SurveyLegendController extends Controller
                                             $peer_list_item_id = $peer_list_item->id;
                                             $id = $participant_id . '-' . $peer_list_item_id;
                                             $template_path = 'mailing.peerList.peerReflection';
-                                            //$company = Company::find($participant->company_id)->first();
                                             $id_form_peer_reflection = $company->id_form_peer_reflection;
                                             if(!empty($id_form_peer_reflection)){
                                                 SendEmail::dispatch($email, $id, $template_path, $id_form_peer_reflection);

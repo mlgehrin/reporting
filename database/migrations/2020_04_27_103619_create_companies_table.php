@@ -16,6 +16,9 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('id_form_self_reflection')->nullable();
+            $table->string('id_form_peer_collection')->nullable();
+            $table->string('id_form_peer_reflection')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

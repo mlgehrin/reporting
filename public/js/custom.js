@@ -168,9 +168,14 @@ $(document).ready(function () {
             let file_data = $('#csv-file').prop('files')[0];
             let form_data = new FormData();
             let token = $('meta[name="csrf-token"]').attr('content');
+            let id_form_self_reflection = $('#id-form-self-reflection').val();
+            let id_form_peer_collection = $('#id-form-peer-collection').val();
+            let id_form_peer_reflection = $('#id-form-peer-reflection').val();
             form_data.append('csv_file', file_data);
             form_data.append('_token', token);
-
+            form_data.append('id_form_self_reflection', id_form_self_reflection);
+            form_data.append('id_form_peer_collection', id_form_peer_collection);
+            form_data.append('id_form_peer_reflection', id_form_peer_reflection);
             $.ajax({
                 url: 'save-csv-file',
                 cache: false,

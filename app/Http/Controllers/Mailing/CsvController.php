@@ -12,18 +12,22 @@ class CsvController extends Controller
     function saveCsvFile (Request $request){
         if($request->isMethod('post')){
             if($request->hasFile('csv_file')) {
-                ini_set('display_errors', 1);
-                ini_set('display_startup_errors', 1);
-                error_reporting(E_ALL);
+
                 $file = $request->file('csv_file');
+                $data = $request->all();
 
                 if($file->getClientOriginalExtension() == 'csv'){
                     $fileName = str_replace('.csv', '', $file->getClientOriginalName());
 
                     $company = new Company();
                     $company->name = $fileName;
+                    $company->id_form_self_reflection = !empty($data['id_form_self_reflection']) ? htmlentities(trim($data['id_form_self_reflection'])) : NULL;
+                    $company->id_form_peer_collection = !empty($data['id_form_peer_collection']) ? htmlentities(trim($data['id_form_peer_collection'])) : NULL;
+                    $company->id_form_peer_reflection = !empty($data['id_form_peer_reflection']) ? htmlentities(trim($data['id_form_peer_reflection'])) : NULL;
                     $company->save();
+
                     $company_id = $company->id;
+
                     $csvFile = file($file);
 
                     foreach ($csvFile as $key => $line) {
@@ -40,9 +44,7 @@ class CsvController extends Controller
                         $participant->save();
                     }
                 }
-
                 return array('save_file' => true);
-
             }
             return array('save_file' => false);
         }

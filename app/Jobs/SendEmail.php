@@ -17,6 +17,7 @@ class SendEmail implements ShouldQueue
     protected $email;
     protected $user_id;
     protected $template_path;
+    protected $form_id;
 
     public $tries = 3;
     /**
@@ -24,11 +25,12 @@ class SendEmail implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($email, $user_id, $template_path)
+    public function __construct($email, $user_id, $template_path, $form_id)
     {
         $this->email = $email;
         $this->user_id = $user_id;
         $this->template_path = $template_path;
+        $this->form_id = $form_id;
     }
 
     /**
@@ -38,6 +40,6 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new Surveys($this->user_id, $this->template_path));
+        Mail::to($this->email)->send(new Surveys($this->user_id, $this->template_path, $this->form_id));
     }
 }

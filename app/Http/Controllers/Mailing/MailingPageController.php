@@ -203,8 +203,9 @@ class MailingPageController extends Controller
         if($request->has('company_id')){
             $company_id = htmlentities(trim($request->post('company_id')));
             $participants = Participant::where('company_id', $company_id)->get();
+            $company = Company::find($company_id)->first();
 
-            if(!empty($participants)){
+            if(!empty($participants) && !empty($company)){
 
                 foreach ($participants as $participant) {
 
@@ -213,14 +214,23 @@ class MailingPageController extends Controller
                         $participant->data_send_self_reflection = Carbon::now('-7:00');
                         $participant->save();
                         $template_path = 'mailing.selfReflection';
-                        SendEmail::dispatch($participant->email, $participant->id, $template_path);
+                        $id_form_self_reflection = $company->id_form_self_reflection;
+
+                        if(!empty($id_form_self_reflection)){
+                            SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_self_reflection);
+                        }
+
                     }
                     if($participant->peer_reflection == 1 && $participant->unsubscribed_peer_reflection == 0){
                         $participant->counter_sending_peer_reflection = $participant->counter_sending_peer_reflection + 1;
                         $participant->data_send_peer_reflection = Carbon::now('-7:00');
                         $participant->save();
                         $template_path = 'mailing.peerCollection';
-                        SendEmail::dispatch($participant->email, $participant->id, $template_path);
+                        $id_form_peer_collection = $company->id_form_peer_collection;
+
+                        if(!empty($id_form_peer_collection)){
+                            SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_peer_collection);
+                        }
                     }
                     /*$mail = new MailController();
                     $response = $mail->sendSurveyInvitations($participant->email, $participant->id);*/

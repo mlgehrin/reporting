@@ -14,15 +14,17 @@ class Surveys extends Mailable
     //public $mail_data;
     public $user_id;
     public $template_path;
+    public $form_id;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user_id, $template_path)
+    public function __construct($user_id, $template_path, $form_id)
     {
         $this->user_id = $user_id;
         $this->template_path = $template_path;
+        $this->form_id = $form_id;
 
     }
 

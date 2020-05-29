@@ -17,10 +17,6 @@
                     <div class="block-upload-csv">
                         <div class="card-body">
 
-                            {{--START upload csv--}}
-                            @include('components.mailing.forms.addCompanyFile')
-                            {{--END block upload csv--}}
-
 
                             {{--START block mailing--}}
                             @include('components.mailing.forms.mailing')
@@ -36,9 +32,17 @@
                             @include('components.mailing.blocks.participantList')
                             {{--END block participant list--}}
 
+                            {{--START upload csv--}}
+                            @include('components.mailing.forms.addCompanyFile')
+                            {{--END block upload csv--}}
+
                             {{--START block add participant--}}
                             @include('components.mailing.blocks.addParticipant')
                             {{--END block add participant--}}
+
+                            {{--START block confirm remove company--}}
+                            @include('components.mailing.forms.confirmRemoveCompany')
+                            {{--END block confirm remove company--}}
 
                         </div>
                     </div>

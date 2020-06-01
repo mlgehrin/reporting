@@ -25,14 +25,27 @@ $(document).ready(function () {
         axios
             .post('start-mailing', data)
             .then(function (response) {
-                $('#sendSuccessful').html(
-                    '<div class="alert alert-success alert-dismissible fade show" role="alert">\n' +
-                    '    Sending was successful\n' +
-                    '    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
-                    '        <span aria-hidden="true">&times;</span>\n' +
-                    '    </button>\n' +
-                    '</div>'
-                )
+                console.log(response);
+                if(response.data.send === true){ //alert-danger
+                    $('#sendSuccessful').html(
+                        '<div class="alert alert-success alert-dismissible fade show" role="alert">\n' +
+                        '    Sending was successful\n' +
+                        '    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                        '        <span aria-hidden="true">&times;</span>\n' +
+                        '    </button>\n' +
+                        '</div>'
+                    )
+                }else {
+                    $('#sendSuccessful').html(
+                        '<div class="alert alert-danger alert-dismissible fade show" role="alert">\n' +
+                        '    Sending was unsuccessful. Check fields with survey forms ID. They must not be empty.\n' +
+                        '    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                        '        <span aria-hidden="true">&times;</span>\n' +
+                        '    </button>\n' +
+                        '</div>'
+                    )
+                }
+
             }.bind(this))
             .catch(error => console.log(error));
 
@@ -244,7 +257,7 @@ $(document).ready(function () {
 
             let form_id = $(this).val();
             let form_name = $(this).attr('name');
-            if(form_id.length){
+            if(true){
                 updateFormId(form_id, form_name);
             }
 

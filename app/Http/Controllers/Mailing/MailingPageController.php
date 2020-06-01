@@ -204,7 +204,7 @@ class MailingPageController extends Controller
         $form_id = htmlentities(trim($request->post('form_id')));
         $form_name = htmlentities(trim($request->post('form_name')));
         $company_id = htmlentities(trim($request->post('company_id')));
-        if(!empty($company_id) && !empty($form_name) && !empty($form_id)){
+        if(!empty($company_id) && !empty($form_name)){
             $company = Company::find($company_id);
             if(!empty($company)){
                 $save = false;
@@ -285,37 +285,46 @@ class MailingPageController extends Controller
             $company = Company::find($company_id)->first();
 
             if(!empty($participants) && !empty($company)){
-
+                $forms_submitted = 0;
                 foreach ($participants as $participant) {
 
                     if($participant->self_reflection == 1 && $participant->unsubscribed_self_reflection == 0){
-                        $participant->counter_sending_self_reflection = $participant->counter_sending_self_reflection + 1;
-                        $participant->data_send_self_reflection = Carbon::now('-7:00');
-                        $participant->save();
-                        $template_path = 'mailing.selfReflection';
                         $id_form_self_reflection = $company->id_form_self_reflection;
-                        $first_name = $participant->first_name;
-                        $last_name = $participant->last_name;
                         if(!empty($id_form_self_reflection)){
+                            $participant->counter_sending_self_reflection = $participant->counter_sending_self_reflection + 1;
+                            $participant->data_send_self_reflection = Carbon::now('-7:00');
+                            $participant->save();
+                            $template_path = 'mailing.selfReflection';
+                            $first_name = $participant->first_name;
+                            $last_name = $participant->last_name;
                             SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_self_reflection, $first_name, $last_name);
+                            $forms_submitted++;
                         }
 
                     }
                     if($participant->peer_reflection == 1 && $participant->unsubscribed_peer_reflection == 0){
-                        $participant->counter_sending_peer_reflection = $participant->counter_sending_peer_reflection + 1;
-                        $participant->data_send_peer_reflection = Carbon::now('-7:00');
-                        $participant->save();
-                        $template_path = 'mailing.peerCollection';
                         $id_form_peer_collection = $company->id_form_peer_collection;
-                        $first_name = $participant->first_name;
-                        $last_name = $participant->last_name;
                         if(!empty($id_form_peer_collection)){
+                            $participant->counter_sending_peer_reflection = $participant->counter_sending_peer_reflection + 1;
+                            $participant->data_send_peer_reflection = Carbon::now('-7:00');
+                            $participant->save();
+                            $template_path = 'mailing.peerCollection';
+                            $id_form_peer_collection = $company->id_form_peer_collection;
+                            $first_name = $participant->first_name;
+                            $last_name = $participant->last_name;
                             SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_peer_collection, $first_name, $last_name);
+                            $forms_submitted++;
                         }
                     }
                 }
+
+                if($forms_submitted > 0){
+                    return array(
+                        'send' => true
+                    );
+                }
                 return array(
-                    'send' => true
+                    'send' => false
                 );
             }
         }

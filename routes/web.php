@@ -25,6 +25,10 @@ Route::post('remove/participant/{user_id}', 'Mailing\MailingPageController@remov
 
 Route::post('remove/company', 'Mailing\MailingPageController@removeCompany')->name('removeCompany');
 
+Route::post('update/survey-id', 'Mailing\MailingPageController@updateSurveyFormId')->name('updateSurveyFormId');
+
+Route::post('change/survey-id', 'Mailing\MailingPageController@changeSurveyFormId')->name('changeSurveyFormId');
+
 Route::post('update/participant', 'Mailing\MailingPageController@updateParticipantForCompany')->name('updateParticipantForCompany');
 
 Route::get('unsubscribe/self-reflection/{user_id}', 'Mailing\MailController@unsubscribeSelfReflection');

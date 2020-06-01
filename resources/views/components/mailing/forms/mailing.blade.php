@@ -21,16 +21,16 @@
                     </div>
 
                 </div>
-                <div class="form-row d-flex align-items-end">
+                <div id="survey-forms-id" class="form-row d-flex align-items-end">
                     <label class="col-4">
-                        <input class="form-control" name="id_self_reflection" data-company-id="{{ $companies[0]->id }}" type="text" value="{{ !empty($companies[0]->id_form_self_reflection) ? $companies[0]->id_form_self_reflection : '' }}">
+                        <input class="form-control survey-id" name="id_form_self_reflection" data-company-id="{{ $companies[0]->id }}" type="text" value="{{ !empty($companies[0]->id_form_self_reflection) ? $companies[0]->id_form_self_reflection : '' }}">
                         Self Reflection ID</label>
                     <label class="col-4">
-                        <input class="form-control" name="id_peer_collection" data-company-id="{{ $companies[0]->id }}" type="text" value="{{ !empty($companies[0]->id_form_peer_collection) ? $companies[0]->id_form_peer_collection : '' }}">
+                        <input class="form-control survey-id" name="id_form_peer_collection" data-company-id="{{ $companies[0]->id }}" type="text" value="{{ !empty($companies[0]->id_form_peer_collection) ? $companies[0]->id_form_peer_collection : '' }}">
                         Peer Collection ID
                     </label>
                     <label class="col-4">
-                        <input class="form-control" name="id_peer_reflection" data-company-id="{{ $companies[0]->id }}" type="text" value="{{ !empty($companies[0]->id_form_peer_reflection) ? $companies[0]->id_form_peer_collection : '' }}">
+                        <input class="form-control survey-id" name="id_form_peer_reflection" data-company-id="{{ $companies[0]->id }}" type="text" value="{{ !empty($companies[0]->id_form_peer_reflection) ? $companies[0]->id_form_peer_reflection : '' }}">
                         Peer Reflection ID
                     </label>
                 </div>

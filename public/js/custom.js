@@ -53,7 +53,7 @@ $(document).ready(function () {
                     initPeerReflection()
                     initSelfReflection()
                 }
-                console.log('update participant',response);
+
             }.bind(this))
             .catch(error => console.log(error));
         //e.preventDefault();
@@ -233,5 +233,83 @@ $(document).ready(function () {
                 )
             });
         e.preventDefault();
+    })
+
+
+    // update survey forms id on page
+    var timeoutSurveyIdUpdate = null;
+    function updateSurveyFormId(){
+
+        $('.survey-id').bind('keyup change', function () {
+
+            let form_id = $(this).val();
+            let form_name = $(this).attr('name');
+            if(form_id.length){
+                updateFormId(form_id, form_name);
+            }
+
+        });
+    }
+    updateSurveyFormId();
+
+    function updateFormId(form_id, form_name) {
+
+        if (timeoutSurveyIdUpdate) {
+            window.clearTimeout(timeoutSurveyIdUpdate);
+        }
+        timeoutSurveyIdUpdate = setTimeout(function() {
+
+            let form_data = new FormData();
+            let company_id = $('select[name=id-company] option').filter(':selected').val();
+            let token = $('meta[name="csrf-token"]').attr('content');
+            form_data.append('_token', token);
+            form_data.append('form_id', form_id);
+            form_data.append('form_name', form_name);
+            form_data.append('company_id', company_id);
+            $.ajax({
+                url: 'update/survey-id',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function(response){
+                    if(response.update === true){
+                        $('#sendSuccessful').html(
+                            '<div class="alert alert-success alert-dismissible fade show" role="alert">\n' +
+                            '    Success update survey form ID\n' +
+                            '    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                            '        <span aria-hidden="true">&times;</span>\n' +
+                            '    </button>\n' +
+                            '</div>'
+                        )
+                    }
+                    console.log(response);
+                }
+            });
+
+        }, 1000, form_id, form_name);
+    }
+
+    //update survey form id after changed company
+    $('#id-company').change(function () {
+        let compani_id = $('select[name=id-company] option').filter(':selected').val();
+        let data = 'company_id=' + compani_id;
+        axios
+            .post('change/survey-id', data)
+            .then(function (response) {
+                console.log(response)
+                if(response.data.change === true) {
+                    $('#survey-forms-id').empty();
+                    $('#survey-forms-id').append(response.data.forms_id);
+                    removeParticipant()
+                    initPeerReflection()
+                    initSelfReflection()
+                    updateSurveyFormId()
+                }
+
+            }.bind(this))
+            .catch(error => console.log(error));
+        //e.preventDefault();
     })
 });

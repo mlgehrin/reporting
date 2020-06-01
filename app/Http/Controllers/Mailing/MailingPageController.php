@@ -120,8 +120,9 @@ class MailingPageController extends Controller
             $company_id = htmlentities(trim($request->post('company_id')));
             $participants = Participant::where('company_id', $company_id)->get();
 
+            $html = '';
             if(!empty($participants)){
-                $html = '';
+
                 $html .= '<div id="participant-list" class="list col-10">';
                     $html .= '<table class="participant-list table table-striped table-sm">';
                         foreach ($participants as $key => $participant) {
@@ -172,7 +173,7 @@ class MailingPageController extends Controller
 
                 return $response;
             }
-            //var_dump($remove_participant, $remove_company);
+
             return array('update' => false);
         }
     }
@@ -196,6 +197,84 @@ class MailingPageController extends Controller
                 return $response;
             }
             return array('remove' => false);
+        }
+    }
+
+    public function updateSurveyFormId(Request $request){
+        $form_id = htmlentities(trim($request->post('form_id')));
+        $form_name = htmlentities(trim($request->post('form_name')));
+        $company_id = htmlentities(trim($request->post('company_id')));
+        if(!empty($company_id) && !empty($form_name) && !empty($form_id)){
+            $company = Company::find($company_id);
+            if(!empty($company)){
+                $save = false;
+                if($form_name == 'id_form_self_reflection'){
+                    $company->id_form_self_reflection = $form_id;
+                    $save = $company->save();
+                }
+                if($form_name == 'id_form_peer_collection'){
+                    $company->id_form_peer_collection = $form_id;
+                    $save = $company->save();
+                }
+                if($form_name == 'id_form_peer_reflection'){
+                    $company->id_form_peer_reflection = $form_id;
+                    $save = $company->save();
+                }
+                if($save){
+                    return array(
+                        'update' => true
+                    );
+                }
+            }
+        }
+        return array(
+            'update' => false
+        );
+    }
+
+    public function changeSurveyFormId(Request $request){
+        if($request->has('company_id')){
+
+            $company_id = htmlentities(trim($request->post('company_id')));
+            $company = Company::find($company_id);
+            $id_form_self_reflection = !empty($company->id_form_self_reflection) ? $company->id_form_self_reflection : '';
+            $id_form_peer_collection = !empty($company->id_form_peer_collection) ? $company->id_form_peer_collection : '';
+            $id_form_peer_reflection = !empty($company->id_form_peer_reflection) ? $company->id_form_peer_reflection : '';
+
+            $html = '';
+            if(!empty($company)){
+                $html .= '<label class="col-4">';
+                $html .= '<input class="form-control survey-id" 
+                                        name="id_form_self_reflection" 
+                                        data-company-id="' . $company->id . '" 
+                                        type="text" 
+                                        value="' . $id_form_self_reflection . '">';
+                $html .= 'Self Reflection ID</label>';
+
+                $html .= '<label class="col-4">';
+                $html .= '<input class="form-control survey-id" 
+                                        name="id_form_peer_collection" 
+                                        data-company-id="' . $company->id . '" 
+                                        type="text" 
+                                        value="' . $id_form_peer_collection . '">';
+                $html .= 'Peer Collection ID</label>';
+
+                $html .= '<label class="col-4">';
+                $html .= '<input class="form-control survey-id" 
+                                        name="id_form_peer_reflection" 
+                                        data-company-id="' . $company->id . '" 
+                                        type="text" 
+                                        value="' . $id_form_peer_reflection . '">';
+                $html .= 'Peer Collection ID</label>';
+
+                $response = array(
+                    'change' => true,
+                    'forms_id' => $html,
+                );
+
+                return $response;
+            }
+            return array('change' => false);
         }
     }
 

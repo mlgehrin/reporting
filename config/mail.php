@@ -56,14 +56,9 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'evgen.korolev@quardex.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@movemountains.com'),
         'name' => env('MAIL_FROM_NAME', 'Surveys'),
     ],
-    // delete fo live!
-    /*'to' => [
-        'address' => 'evgen.korolev@quardex.com',
-        'name' => 'Example'
-    ],*/
 
     /*
     |--------------------------------------------------------------------------

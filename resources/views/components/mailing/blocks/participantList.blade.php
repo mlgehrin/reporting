@@ -82,7 +82,7 @@
     </div>
     <div class="col-2">
         <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#addCompanyFile">
-            Parse CSV
+            Add Company
         </button>
         <button type="button" class="btn btn-success btn-block" data-toggle="modal"
                 data-target="#addParticipant">

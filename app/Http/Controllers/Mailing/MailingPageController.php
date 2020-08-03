@@ -140,6 +140,7 @@ class MailingPageController extends Controller
                                         $html .= '<input type="checkbox"
                                         class="custom-control-input"
                                         id="self-refl-' . $participant->id . '"
+                                        data-user-id= ' . $participant->id . '
                                         name="self_reflection"
                                         value="' . $participant->self_reflection . '" ' . $checked_self_reflection . '>';
                                         $html .= '<label class="custom-control-label" for="self-refl-' . $participant->id . '">Self Reflection</label>';
@@ -151,6 +152,7 @@ class MailingPageController extends Controller
                                         $html .= '<input type="checkbox"
                                         class="custom-control-input"
                                         id="peer-refl-' . $participant->id . '"
+                                        data-user-id= ' . $participant->id . '
                                         name="peer_reflection"
                                         value="' . $participant->peer_reflection . '" ' . $checked_peer_reflection . '>';
                                         $html .= '<label class="custom-control-label" for="peer-refl-' . $participant->id . '">Leadership Reflection</label>';

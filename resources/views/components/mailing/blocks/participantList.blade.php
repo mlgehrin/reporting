@@ -91,8 +91,14 @@
         <button type="button" id="selectAllSelfReflections" class="btn btn-outline-primary btn-block btn-sm">
             <small>Select All Self Reflections</small>
         </button>
+        <button type="button" id="disableAllSelfReflections" class="btn btn-outline-primary btn-block btn-sm">
+            <small>Disable All Self Reflections</small>
+        </button>
         <button type="button" id="selectAllPeerReflections" class="btn btn-outline-primary btn-block btn-sm">
             <small>Select All Leadership Reflections</small>
+        </button>
+        <button type="button" id="disableAllPeerReflections" class="btn btn-outline-primary btn-block btn-sm">
+            <small>Disable All Leadership Reflections</small>
         </button>
     </div>
 </div>

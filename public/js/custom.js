@@ -93,6 +93,27 @@ $(document).ready(function () {
 
     })
 
+    // select ajax to check peer_reflection
+    $('#disableAllPeerReflections').on('click', function (e) {
+        let users_id = (() => {
+            let list = ''
+            document.querySelectorAll(".participant-list input[name='peer_reflection']").forEach( e => {if(e.checked) {
+                list += (e.dataset.userId + ',')
+                e.checked  = false
+            }})
+            return list.slice(0, -1)
+        })()
+        if (!!users_id) {
+            let data = 'peer_reflection=' + users_id;
+            axios
+                .post('remove/peer-reflection', data)
+                .then(function (response) {
+                }.bind(this))
+                .catch(error => console.log(error));
+        }
+
+    })
+
     function initPeerReflection () {
         $(".participant-list input[name='peer_reflection']").on('click', function (e) {
             let user_id = e.target.dataset.userId;
@@ -129,6 +150,27 @@ $(document).ready(function () {
             let data = 'self_reflection=' + users_id;
             axios
                 .post('update/self-reflection', data)
+                .then(function (response) {
+                }.bind(this))
+                .catch(error => console.log(error));
+        }
+    })
+
+    // select ajax to disabled self_reflection
+    $('#disableAllSelfReflections').on('click', function (e) {
+        let users_id = (() => {
+            let list = ''
+            document.querySelectorAll(".participant-list input[name='self_reflection']").forEach( e => {if(e.checked) {
+                list += (e.dataset.userId + ',')
+                e.checked  = false
+            }})
+            return list.slice(0, -1)
+        })()
+
+        if (!!users_id) {
+            let data = 'self_reflection=' + users_id;
+            axios
+                .post('remove/self-reflection', data)
                 .then(function (response) {
                 }.bind(this))
                 .catch(error => console.log(error));
@@ -315,9 +357,6 @@ $(document).ready(function () {
                 if(response.data.change === true) {
                     $('#survey-forms-id').empty();
                     $('#survey-forms-id').append(response.data.forms_id);
-                    removeParticipant()
-                    initPeerReflection()
-                    initSelfReflection()
                     updateSurveyFormId()
                 }
 

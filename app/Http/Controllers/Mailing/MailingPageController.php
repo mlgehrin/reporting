@@ -265,7 +265,7 @@ class MailingPageController extends Controller
                                         data-company-id="' . $company->id . '" 
                                         type="text" 
                                         value="' . $id_form_peer_reflection . '">';
-                $html .= 'Peer Collection ID</label>';
+                $html .= 'Peer Reflection ID</label>';
 
                 $response = array(
                     'change' => true,

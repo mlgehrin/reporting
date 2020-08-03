@@ -92,7 +92,7 @@
             <small>Select All Self Reflections</small>
         </button>
         <button type="button" id="selectAllPeerReflections" class="btn btn-outline-primary btn-block btn-sm">
-            <small>Select All Peer Reflections</small>
+            <small>Select All Leadership Reflections</small>
         </button>
     </div>
 </div>

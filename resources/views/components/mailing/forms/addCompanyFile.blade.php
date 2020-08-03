@@ -24,11 +24,11 @@
                                     <input id="id-form-self-reflection" class="form-control" name="id_form_self_reflection" type="text">
                                 </div>
                                 <div class="form-group">
-                                    <label>Peer Collection</label>
+                                    <label>Leadership Collection</label>
                                     <input id="id-form-peer-collection" class="form-control" name="id_form_peer_collection" type="text">
                                 </div>
                                 <div class="form-group">
-                                    <label>Peer Reflection</label>
+                                    <label>Leadership Reflection</label>
                                     <input id="id-form-peer-reflection" class="form-control" name="id_form_peer_reflection" type="text">
                                 </div>
                             </div>

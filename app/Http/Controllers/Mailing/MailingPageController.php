@@ -153,7 +153,7 @@ class MailingPageController extends Controller
                                         id="peer-refl-' . $participant->id . '"
                                         name="peer_reflection"
                                         value="' . $participant->peer_reflection . '" ' . $checked_peer_reflection . '>';
-                                        $html .= '<label class="custom-control-label" for="peer-refl-' . $participant->id . '">Peer Reflection</label>';
+                                        $html .= '<label class="custom-control-label" for="peer-refl-' . $participant->id . '">Leadership Reflection</label>';
                                     $html .= '</div></div>';
                                     $html .= '<div class="row"><small>' . $data_send_peer_reflection . '</small></div>';
                                 $html .= '</td>';
@@ -257,7 +257,7 @@ class MailingPageController extends Controller
                                         data-company-id="' . $company->id . '" 
                                         type="text" 
                                         value="' . $id_form_peer_collection . '">';
-                $html .= 'Peer Collection ID</label>';
+                $html .= 'Leadership Collection ID</label>';
 
                 $html .= '<label class="col-4">';
                 $html .= '<input class="form-control survey-id" 
@@ -265,7 +265,7 @@ class MailingPageController extends Controller
                                         data-company-id="' . $company->id . '" 
                                         type="text" 
                                         value="' . $id_form_peer_reflection . '">';
-                $html .= 'Peer Reflection ID</label>';
+                $html .= 'Leadership Reflection ID</label>';
 
                 $response = array(
                     'change' => true,

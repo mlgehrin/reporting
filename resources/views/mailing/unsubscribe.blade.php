@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@php //dd($result); @endphp
 @section('content')
     @if($result === true)
         <div class="container">

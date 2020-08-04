@@ -70,8 +70,11 @@ class SurveyLegendController extends Controller
                                             $id = $participant_id . '-' . $peer_list_item_id;
                                             $template_path = 'mailing.peerList.peerReflection';
                                             $id_form_peer_reflection = $company->id_form_peer_reflection;
+                                            $first_name = $participant->first_name;
+                                            $last_name = $participant->last_name;
+                                            $subject = $first_name . ' ' . $last_name . ' has asked for your input';
                                             if(!empty($id_form_peer_reflection)){
-                                                SendEmail::dispatch($email, $id, $template_path, $id_form_peer_reflection);
+                                                SendEmail::dispatch($email, $id, $template_path, $id_form_peer_reflection, $first_name, $last_name, $subject);
                                             }
                                         }
                                     }

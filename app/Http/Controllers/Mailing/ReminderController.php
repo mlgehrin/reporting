@@ -25,8 +25,9 @@ class ReminderController extends Controller
                 $participant->save();
                 $first_name = $participant->first_name;
                 $last_name = $participant->last_name;
+                $subject = 'Your Move Mountains Self Reflection';
                 if(!empty($id_form_self_reflection)){
-                    SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_self_reflection, $first_name, $last_name);
+                    SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_self_reflection, $first_name, $last_name, $subject);
                 }
             }
         }
@@ -46,8 +47,9 @@ class ReminderController extends Controller
                 $participant->save();
                 $first_name = $participant->first_name;
                 $last_name = $participant->last_name;
+                $subject = 'Your Move Mountains Leadership Reflection';
                 if(!empty($id_form_peer_collection)){
-                    SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_peer_collection, $first_name, $last_name);
+                    SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_peer_collection, $first_name, $last_name, $subject);
                 }
             }
         }
@@ -63,12 +65,15 @@ class ReminderController extends Controller
             foreach ($peer_list as $peer_list_item) {
                 $template_path = 'mailing.reminder.peerReflection';
                 $participant = Participant::find($peer_list_item->participant_id);
+                $first_name = $participant->first_name;
+                $last_name = $participant->last_name;
                 $company = Company::find($participant->company_id);
                 $id_form_peer_reflection = $company->id_form_peer_reflection;
                 $peer_list_item->reminder_peer_reflection = $peer_list_item->reminder_peer_reflection + 1;
                 $peer_list_item->save();
+                $subject = $first_name . ' ' . $last_name . ' has asked for your input';
                 if(!empty($id_form_peer_reflection)){
-                    SendEmail::dispatch($peer_list_item->email, $peer_list_item->id, $template_path, $id_form_peer_reflection);
+                    SendEmail::dispatch($peer_list_item->email, $peer_list_item->id, $template_path, $id_form_peer_reflection, $first_name, $last_name, $subject);
                 }
             }
         }

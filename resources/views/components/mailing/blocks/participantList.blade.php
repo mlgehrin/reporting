@@ -56,7 +56,7 @@
                             @endif
                             >
                             <label class="custom-control-label"
-                                   for="peer-refl-{{ $participant->id }}"><small>Peer
+                                   for="peer-refl-{{ $participant->id }}"><small>Leadership
                                     Reflection</small></label>
                         </div>
                     </div>

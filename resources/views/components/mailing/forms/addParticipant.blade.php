@@ -48,7 +48,7 @@
                     <input class="" type="checkbox" id="peer-reflection"
                            name="peer_reflection" value="1">
                     <label class="form-check-label"
-                           for="peer-reflection">Peer
+                           for="peer-reflection">Leadership
                         Reflection</label>
                 </div>
             </div>

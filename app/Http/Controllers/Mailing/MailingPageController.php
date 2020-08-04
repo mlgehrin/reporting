@@ -299,7 +299,8 @@ class MailingPageController extends Controller
                             $template_path = 'mailing.selfReflection';
                             $first_name = $participant->first_name;
                             $last_name = $participant->last_name;
-                            SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_self_reflection, $first_name, $last_name);
+                            $subject = 'Your Move Mountains Self Reflection';
+                            SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_self_reflection, $first_name, $last_name, $subject);
                             $forms_submitted++;
                         }
 
@@ -314,7 +315,8 @@ class MailingPageController extends Controller
                             $id_form_peer_collection = $company->id_form_peer_collection;
                             $first_name = $participant->first_name;
                             $last_name = $participant->last_name;
-                            SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_peer_collection, $first_name, $last_name);
+                            $subject = 'Your Move Mountains Leadership Reflection';
+                            SendEmail::dispatch($participant->email, $participant->id, $template_path, $id_form_peer_collection, $first_name, $last_name, $subject);
                             $forms_submitted++;
                         }
                     }

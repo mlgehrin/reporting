@@ -26,7 +26,7 @@ class SurveyLegendController extends Controller
         $data = unserialize($file);*/
 
         if(!empty($data)){
-            if (!empty($data['form_response']['hidden']['participant_id'])){
+            if (!empty($data['form_response']['hidden']['participant_id']) && $data['form_response']['hidden']['participant_id'] !== 'hidden_value'){
                 $check_peer_list = strripos($data['form_response']['hidden']['participant_id'], '-');
                 if($check_peer_list === false){
                     $participant_id = htmlentities(trim($data['form_response']['hidden']['participant_id']));
@@ -82,7 +82,7 @@ class SurveyLegendController extends Controller
                                 }
                                 $save = $participant->save();
                                 if($save){
-                                    response('',200);die;
+                                    response('Success',200);die;
                                 }
                             }
                         }
@@ -102,13 +102,15 @@ class SurveyLegendController extends Controller
                                 $peer_list_item->success_peer_reflection = 1;
                                 $save = $peer_list_item->save();
                                 if($save){
-                                    response('',200);die;
+                                    response('Success',200);die;
                                 }
                             }
                         }
                     }
                 }
-                response('',200);die;
+                response('Empty or not isset variable participant_id',200);die;
+            }else{
+                response('Something went wrong, or you just made a test request!',200);die;
             }
         }
     }

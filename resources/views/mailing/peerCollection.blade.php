@@ -13,5 +13,5 @@
 </div>
 <br>
 <div>
-    <a href="http://161.35.3.39/unsubscribe/peer-collection/{{ $user_id }}">Unsubscribe from a reminder</a>
+    <h6><a style="color: grey;" href="http://161.35.3.39/unsubscribe/peer-collection/{{ $user_id }}">Unsubscribe</a></h6>
 </div>
